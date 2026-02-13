@@ -1,0 +1,216 @@
+import { TUserSubscription } from "@/types/userTypes";
+
+export const userSubscriptionDatas: TUserSubscription[] = [
+  {
+    id: "01",
+    name: "kamran",
+    email: "kk4038423@gmail.com",
+    location: "Dhaka, Bangladesh",
+    contact: "01710000001",
+    gender: "Male",
+    package: "Basic",
+    startDate: "01.02.1999",
+    expireDate: "01.02.1999",
+    status: "Active",
+  },
+  {
+    id: "02",
+    name: "Ayesha",
+    email: "ayesha01@gmail.com",
+    location: "Chittagong, Bangladesh",
+    contact: "01710000002",
+    gender: "Female",
+    package: "Basic",
+    startDate: "15.03.2000",
+    expireDate: "15.03.2005",
+    status: "Expired",
+  },
+  {
+    id: "03",
+    name: "Rahim",
+    email: "rahim.bd@gmail.com",
+    location: "Sylhet, Bangladesh",
+    contact: "01710000003",
+    gender: "Male",
+    package: "Basic",
+    startDate: "20.05.2001",
+    expireDate: "20.05.2006",
+    status: "Active",
+  },
+  {
+    id: "04",
+    name: "Nusrat",
+    email: "nusrat.khan@gmail.com",
+    location: "Rajshahi, Bangladesh",
+    contact: "01710000004",
+    gender: "Female",
+    package: "Basic",
+    startDate: "10.07.2002",
+    expireDate: "10.07.2007",
+    status: "Active",
+  },
+  {
+    id: "05",
+    name: "Imran",
+    email: "imran.dev@gmail.com",
+    location: "Khulna, Bangladesh",
+    contact: "01710000005",
+    gender: "Male",
+    package: "Basic",
+    startDate: "05.09.2003",
+    expireDate: "05.09.2008",
+    status: "Active",
+  },
+  { 
+    id: "06",
+    name: "Fatima",
+    email: "fatima.bd@gmail.com",
+    location: "Barisal, Bangladesh",
+    contact: "01710000006",
+    gender: "Female",
+    package: "Basic",
+    startDate: "12.11.2004",
+    expireDate: "12.11.2009",
+    status: "Active",
+  },
+  {
+    id: "07",
+    name: "Tanvir",
+    email: "tanvir.bd@gmail.com",
+    location: "Dhaka, Bangladesh",
+    contact: "01710000007",
+    gender: "Male",
+    package: "Basic",
+    startDate: "01.01.2005",
+    expireDate: "01.01.2010",
+    status: "Expired",
+  },
+  {
+    id: "08",
+    name: "Shirin",
+    email: "shirin.bd@gmail.com",
+    location: "Comilla, Bangladesh",
+    contact: "01710000008",
+    gender: "Female",
+    package: "Basic",
+    startDate: "18.04.2006",
+    expireDate: "18.04.2011",
+    status: "Active",
+  },
+  {
+    id: "09",
+    name: "Jahid",
+    email: "jahid.bd@gmail.com",
+    location: "Mymensingh, Bangladesh",
+    contact: "01710000009",
+    gender: "Male",
+    package: "Basic",
+    startDate: "25.06.2007",
+    expireDate: "25.06.2012",
+    status: "Active",
+  },
+  {
+    id: "10",
+    name: "Rumana",
+    email: "rumana.bd@gmail.com",
+    location: "Dhaka, Bangladesh",
+    contact: "01710000010",
+    gender: "Female",
+    package: "Basic",
+    startDate: "30.08.2008",
+    expireDate: "30.08.2013",
+    status: "Active",
+  },
+]
+
+export const patientSubscriptionPlans = [
+  {
+    id: "01",
+    tier: "initial",
+    price: 4.99,
+    duration: "",
+    limit: 25,
+    title: "Initial Access",
+    description: "Track your recovery journey",
+    features: [
+      "Full functionality for one knee",
+      "Complete ROM measurement tools",
+      "Unlimited measurements",
+    ]
+  },
+  {
+    id: "02",
+    tier: "month",
+    price: 45.99,
+    duration: "month",
+    limit: 100,
+    title: "Monthly Subscription",
+    description: "Continue tracking & storage",
+    features: [
+      "Continued measurements",
+      "Cloud data storage",
+      "Progress tracking & graphs",
+      "Progress tracking & graphs",
+      "Cancel anytime"
+    ]
+  },
+  {
+    id: "03",
+    tier: "secondKnee",
+    price: 4.99,
+    duration: "",
+    limit: "Unlimited",
+    title: "Second Knee",
+    description: "Track both knees",
+    features: [
+      "Unlock tracking for the opposite knee",
+    ]
+  }
+];
+
+export const therapistSubscriptionPlans = [
+  {
+    id: "01",
+    tier: "basic",
+    price: 29,
+    duration: "month",
+    limit: 25,
+    description: "Manage your patient base",
+    features: [
+      "Patient records management",
+      "Appointment scheduling",
+      "Basic reporting",
+      "Email support"
+    ]
+  },
+  {
+    id: "02",
+    tier: "pro",
+    price: 99,
+    duration: "month",
+    limit: 100,
+    description: "Ideal for growing clinics",
+    features: [
+      "Everything in Basic",
+      "Advanced analytics",
+      "Custom templates",
+      "Priority support",
+    ]
+  },
+  {
+    id: "03",
+    tier: "enterprise",
+    price: 299,
+    duration: "month",
+    limit: "500",
+    description: "For large scale medical centers",
+    features: [
+      "Everything in Pro",
+      "Dedicated account manager",
+      "Custom integrations",
+      "24/7 phone support",
+      "SLA guarantee",
+      "Training & onboarding",
+    ]
+  }
+];
