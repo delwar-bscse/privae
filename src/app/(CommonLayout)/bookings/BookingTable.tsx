@@ -6,7 +6,7 @@ import { IBooking } from '@/types/columnTypes'
 const BookingTable = ({ data }: { data: IBooking[] }) => {
   return (
     <div>
-      <CustomTable<IBooking> columns={bookingColumns} data={data} />
+      <CustomTable<IBooking> columns={bookingColumns} data={data} path="/bookings" />
     </div>
   )
 }

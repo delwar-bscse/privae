@@ -17,7 +17,7 @@ export default function RootLayout({
           <header className="">
             <Header />
           </header>
-          <main className="bg-white overflow-y-auto hide-scrollbar" style={{ height: "calc(100vh - 80px)" }}>
+          <main className="bg-white overflow-y-auto hide-scrollbar" style={{ height: "calc(100vh - 100px)" }}>
             {children}
           </main>
           <Toaster />

@@ -1,0 +1,37 @@
+import { ColumnDef } from "@tanstack/react-table"
+import { INotes } from "@/types/columnTypes";
+import dayjs from "dayjs";
+import { RiEdit2Line } from "react-icons/ri";
+
+export const noteColumns: ColumnDef<INotes>[] = [
+  {
+    accessorKey: "updatedAt",
+    header: () => <div className="ps-2">Updated at</div>,
+    cell: ({ row }) => (
+      <div className="capitalize ps-2">{dayjs(row.getValue("updatedAt")).format("DD-MMM-YYYY HH:mm A") }</div>
+    ),
+  },
+  {
+    accessorKey: "author",
+    header: () => <div className="">Author</div>,
+    cell: ({ row }) => (
+      <div className="">{row.getValue("author")}</div>
+    ),
+  },
+  {
+    accessorKey: "note",
+    header: () => <div className="">Note</div>,
+    cell: ({ row }) => (
+      <div className="">{row.getValue("note")}</div>
+    ),
+  },
+  {
+    id: "action",
+    header: () => <div className="text-center">Action</div>,
+    cell: ({ row }) => (
+      <p className="flex items-center justify-center">
+        <RiEdit2Line onClick={()=>console.log("Note Id : ", row.original.id)} className="size-6 cursor-pointer text-gray-600"/>
+      </p>
+    ),
+  }
+]

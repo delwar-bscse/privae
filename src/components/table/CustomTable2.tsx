@@ -17,20 +17,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 
 
 interface CustomTableProps<TData> {
   data: TData[];
   columns: ColumnDef<TData>[];
-  path?: string
 }
 
-function CustomTable<TData>({ data, columns, path }: CustomTableProps<TData>) {
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const router = useRouter();
+function CustomTable2<TData>({ data, columns }: CustomTableProps<TData>) {
 
   const table = useReactTable({
     data,
@@ -39,13 +34,6 @@ function CustomTable<TData>({ data, columns, path }: CustomTableProps<TData>) {
     enableRowSelection: true,
     getRowId: (row: any) => row.id,
   })
-
-  const redirectTo = (id: string) => {
-    setSelectedId(id)
-    if(path){
-      router.push(`${path}/${id}`)
-    }
-  }
 
   return (
     <div className="w-full">
@@ -77,9 +65,7 @@ function CustomTable<TData>({ data, columns, path }: CustomTableProps<TData>) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  onClick={() => redirectTo(row.id)}
-                  data-state={row.id === selectedId ? "selected" : "unselected"}
-                  className="px-2 odd:bg-[#F6F6F6] hover:bg-gray-200 cursor-pointer data-[state=selected]:bg-gray-300 transition-colors duration-300"
+                  className="px-2 odd:bg-[#F6F6F6] hover:bg-gray-200 transition-colors duration-300"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -109,4 +95,4 @@ function CustomTable<TData>({ data, columns, path }: CustomTableProps<TData>) {
   )
 }
 
-export default CustomTable
+export default CustomTable2

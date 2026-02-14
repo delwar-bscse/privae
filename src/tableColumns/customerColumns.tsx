@@ -1,0 +1,65 @@
+import { ColumnDef } from "@tanstack/react-table"
+import {  ICustomer} from "@/types/columnTypes";
+import dayjs from "dayjs";
+
+export const customerColumns: ColumnDef<ICustomer>[] = [
+  {
+    accessorKey: "id",
+    header: () => <div className="ps-2">Customer ID</div>,
+    cell: ({ row }) => (
+      <div className="capitalize ps-2">{row.getValue("id")}</div>
+    ),
+  },
+  {
+    accessorKey: "name",
+    header: () => <div className="">Name</div>,
+    cell: ({ row }) => (
+      <div className="">{row.getValue("name")}</div>
+    ),
+  },
+  {
+    accessorKey: "email",
+    header: () => <div className="">Email</div>,
+    cell: ({ row }) => (
+      <div className="">{row.getValue("email")}</div>
+    ),
+  },
+  {
+    accessorKey: "phone",
+    header: () => <div className="">Phone</div>,
+    cell: ({ row }) => (
+      <div className="">{row.getValue("phone")}</div>
+    ),
+  },
+  {
+    accessorKey: "area",
+    header: () => <div className="">Area</div>,
+    cell: ({ row }) => (
+      <div className="">{row.getValue("area")}</div>
+    ),
+  },
+  {
+    accessorKey: "bookings",
+    header: () => <div className="">Bookings</div>,
+    cell: ({ row }) => (
+      <div className="">{row.getValue("bookings")}</div>
+    ),
+  },
+  {
+    accessorKey: "rating",
+    header: () => <div className="">Rating</div>,
+    cell: ({ row }) => {
+      const rating: { score: number; reviews: number; } = row.getValue("rating");
+      return (
+      <div className="">{rating?.score}({rating?.reviews} reviews)</div>
+    )
+    },
+  },
+  {
+    accessorKey: "lastBooking",
+    header: () => <div className="">Last Booking</div>,
+    cell: ({ row }) => (
+      <div className="">{dayjs(row.getValue("lastBooking")).format("DD-MMM-YYYY HH:mm A")}</div>
+    ),
+  },
+]

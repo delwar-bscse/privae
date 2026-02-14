@@ -37,7 +37,7 @@ const DashboardTitle = () => {
   };
 
 
-  console.log("Pathname :", getTitle(pathname))
+  // console.log("Pathname :", getTitle(pathname))
 
   return (
     <div className='px-2 py-1 text-2xl font-bold text-gray-800'>{getTitle(pathname)}</div>

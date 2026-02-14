@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { IBooking} from "@/types/columnTypes";
+import { IBooking } from "@/types/columnTypes";
 import dayjs from "dayjs";
 
 export const bookingColumns: ColumnDef<IBooking>[] = [

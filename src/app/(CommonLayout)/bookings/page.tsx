@@ -17,25 +17,26 @@ const stepDatas: StepDataType[] = [
 
 
 
-const UserManagement = async({searchParams}: {searchParams: any}) => {
-  const {userType, userStatus, userPage} = await searchParams;
-  console.log("User management : ", userType, userStatus, userPage)
+const Bookings = async ({ searchParams }: { searchParams: any }) => {
+  const { query, bookingStatus, page } = await searchParams;
+  console.log("User management : ", query, bookingStatus, page)
 
   return (
-    <div className="px-8">
-      <div className="w-full flex justify-between items-center pt-4">
-        <CustomStep stepDatas={stepDatas} status="step"/>
-        <div className='w-60 xl:w-100'>
-          {/* <CustomSelectOption selectOptions={selectUserOptions} placeHolderValue="Select Type" queryKey="userStatus" /> */}
-          <CustomSearchBar placeholder="Search here..."/>
+    <div className="px-8 flex flex-col min-h-[86vh]">
+      <div className="flex-1">
+        <div className="w-full flex justify-between items-center pt-4">
+          <CustomStep stepDatas={stepDatas} status="step" />
+          <div className='w-60 xl:w-100'>
+            <CustomSearchBar placeholder="Search here..." />
+          </div>
+        </div>
+        <div className="pt-2">
+          <BookingTable data={dummyBookingDatas} />
         </div>
       </div>
-      <div className="pt-2">
-        <BookingTable data={dummyBookingDatas} />
-      </div>
-      <CustomPagination TOTAL_PAGES={5} qryName="userPage" />
+      <CustomPagination TOTAL_PAGES={5} qryName="page" />
     </div>
   )
 }
 
-export default UserManagement;
+export default Bookings;
