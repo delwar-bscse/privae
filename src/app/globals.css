@@ -123,4 +123,41 @@
   body {
     @apply bg-background text-foreground;
   }
+  .authinput {
+    @apply w-full  bg-[#F2F2F2] rounded-xl px-3 py-2.5 pr-10 focus:outline-none ;
+  }
+  .authbutton {
+    @apply w-full bg-[#154370] text-white py-3 rounded-md font-semibold hover:bg-[#154370]/96 transition cursor-pointer;
+  }
+}
+
+
+
+/* Add to your global CSS file */
+.hide-scrollbar {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* Add to your global CSS file */
+.table-row-gap:not(:last-child) {
+  margin-top: 0.5rem;
+  /* Adjust as needed */
+}
+
+.jodit-wysiwyg ul {
+  list-style-type: disc;
+  padding-left: 40px;
+}
+
+.jodit-wysiwyg ol {
+  list-style-type: decimal;
+  padding-left: 40px;
 }

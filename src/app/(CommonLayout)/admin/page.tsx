@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import CustomPagination from "@/components/cui/CustomPagination";
+// import CustomPagination from "@/components/cui/CustomPagination";
 // import BookingTable from "./BookingTable";
 // import { dummyBookingDatas } from "@/datas/bookingData";
 import CustomStep from "@/components/cui/CustomStep";
 import { StepDataType } from "@/types/type";
 import AccessComponent from "./Access";
 import { dummyAccessDatas } from "@/datas/accessDatas";
+import Settings from "./Settings";
+import PlatformFees from "./PlatformFees";
+import TermsAndConditions from "./TermsAndConditions";
+import PrivacyPolicy from "./PrivacyPolicy";
+// import TermsAndCondition from "./TemrsAndCondition";
+// import CustomJodit from "@/components/cui/CustomJodit";
 
 const stepDatas: StepDataType[] = [
   { id: 1, title: "Access" },
@@ -32,9 +38,13 @@ const AdminPage = async ({ searchParams }: { searchParams: any }) => {
         </div>
         <div className="pt-2">
           {step === "Access" && <AccessComponent data={dummyAccessDatas} />}
+          {step === "Settings" && <Settings />}
+          {step === "Platform Rules" && <PlatformFees />}
+          {step === "T&Cs" && <TermsAndConditions />}
+          {step === "Privacy" && <PrivacyPolicy />}
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={5} qryName="page" />
+      {/* <CustomPagination TOTAL_PAGES={5} qryName="page" /> */}
     </div>
   )
 }

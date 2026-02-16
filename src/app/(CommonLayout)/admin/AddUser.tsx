@@ -1,0 +1,214 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/incompatible-library */
+"use client";
+
+import { useForm, Controller } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { toast } from "sonner";
+import Image from "next/image";
+import { RiEdit2Line } from "react-icons/ri";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import { userImage } from "@/app/assets/assets";
+
+type AddUserFormValues = {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  image?: FileList;
+};
+
+
+const AddUser = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [preview, setPreview] = useState<string>("");
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    reset,
+  } = useForm<AddUserFormValues>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      role: "",
+    },
+  });
+
+  const fileImage = watch("image");
+
+  useEffect(() => {
+    if (!fileImage?.length) return;
+    const file = fileImage[0];
+    const previewUrl = URL.createObjectURL(file);
+    setPreview(previewUrl);
+    // return () => URL.revokeObjectURL(previewUrl);
+  }, [fileImage]);
+
+  // Submit handler
+  const onSubmit = async (data: AddUserFormValues) => {
+    if (!data.image?.length) {
+      toast.error("Please select an image");
+      return;
+    }
+
+    try {
+      console.log("Form Data:", data, data.image[0]);
+
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("role", data.role);
+      formData.append("image", data.image[0]);
+
+      toast.success("User added successfully");
+
+      reset();
+      setPreview("");
+
+    } catch (error: any) {
+      toast.error(error.message || "Failed to add user");
+    }
+  };
+
+
+  return (
+    <>
+
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 mt-4"
+      >
+        <div className="w-20 h-20 mx-auto relative">
+          <Image
+            src={preview || userImage}
+            alt="user"
+            width={80}
+            height={80}
+            className="w-20 h-20 object-cover rounded-full"
+          />
+
+          <input
+            type="file"
+            accept="image/*"
+            id="addUserImageId"
+            className="hidden"
+            {...register("image")}
+          />
+
+          <button
+            type="button"
+            onClick={() =>
+              document.getElementById("addUserImageId")?.click()
+            }
+            className="absolute bottom-0 right-0 bg-white size-6 flex items-center justify-center rounded-full shadow"
+          >
+            <RiEdit2Line size={14} />
+          </button>
+        </div>
+        {/* Name */}
+        <div className="flex flex-col gap-1">
+          <label className="text-gray-700">Name</label>
+          <input
+            type="text"
+            placeholder="Enter name"
+            {...register("name", { required: true })}
+            className="authinput"
+          />
+        </div>
+
+        {/* Email */}
+        <div className="flex flex-col gap-1">
+          <label className="text-gray-700">Email</label>
+          <input
+            type="email"
+            placeholder="Enter email"
+            {...register("email", { required: true })}
+            className="authinput"
+          />
+        </div>
+
+        {/* Password */}
+        <div className="flex flex-col gap-1">
+          <label className="text-gray-700">Password</label>
+
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter password"
+              {...register("password", { required: true })}
+              className="authinput"
+            />
+
+            <span
+              onClick={() =>
+                setShowPassword((prev) => !prev)
+              }
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+            >
+              {showPassword ? (
+                <EyeOff size={20} />
+              ) : (
+                <Eye size={20} />
+              )}
+            </span>
+          </div>
+        </div>
+
+        {/* Role */}
+        <div className="flex flex-col gap-1">
+          <label className="text-gray-700">Role</label>
+
+          <Controller
+            name="role"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Select
+                value={field.value}
+                onValueChange={field.onChange}
+              >
+                <SelectTrigger className="authinput bg-[#F2F2F2] w-full">
+                  <SelectValue placeholder="Select role" />
+                </SelectTrigger>
+
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="admin">Admin</SelectItem>
+                    <SelectItem value="super-admin">Super Admin</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="w-full mt-10 bg-[#272727] text-white py-3 rounded-xl font-semibold hover:bg-[#272727]/90 transition"
+        >
+          Submit
+        </button>
+      </form>
+    </>
+  );
+};
+
+export default AddUser;
