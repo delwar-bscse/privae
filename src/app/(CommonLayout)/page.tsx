@@ -3,6 +3,7 @@ import Shapshot from "../../components/pages/dashboard/Shapshot";
 import KpiRight from "@/components/pages/dashboard/KpiRight";
 import { StepDataType } from "@/types/type";
 import CustomStep from "@/components/cui/CustomStep";
+import { PopoverDemo } from "@/components/cui/CalenderPopover";
 
 export default function Home() {
   const stepDatas: StepDataType[] = [
@@ -16,6 +17,9 @@ export default function Home() {
   
   return (
     <div>
+      <div className="px-2 pb-4">
+        <PopoverDemo />
+      </div>
       <div className="px-2 flex gap-3 xl:gap-4">
         <div>
           <KpiLeft />
