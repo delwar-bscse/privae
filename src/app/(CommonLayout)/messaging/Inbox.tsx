@@ -263,7 +263,7 @@ const Inbox = () => {
   // };
 
   return (
-    <div className="w-full max-w-250 mx-auto h-[90vh] flex flex-col justify-between py-8">
+    <div className="w-full h-[90vh] flex flex-col justify-between py-8">
       {/* Messages list */}
       <div
         ref={messageContainerRef}
