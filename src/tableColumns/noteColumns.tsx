@@ -2,6 +2,8 @@ import { ColumnDef } from "@tanstack/react-table"
 import { INotes } from "@/types/columnTypes";
 import dayjs from "dayjs";
 import { RiEdit2Line } from "react-icons/ri";
+import { CustomModal } from "@/components/cui/CustomModal";
+import EditCustomer from "@/app/(CommonLayout)/customers/[id]/EditCustomer";
 
 export const noteColumns: ColumnDef<INotes>[] = [
   {
@@ -30,7 +32,9 @@ export const noteColumns: ColumnDef<INotes>[] = [
     header: () => <div className="text-center">Action</div>,
     cell: ({ row }) => (
       <p className="flex items-center justify-center">
-        <RiEdit2Line onClick={()=>console.log("Note Id : ", row.original.id)} className="size-6 cursor-pointer text-gray-600"/>
+          <CustomModal trigger={<RiEdit2Line onClick={()=>console.log("Note Id : ", row.original.id)} className="size-6 cursor-pointer text-gray-600"/>} title={"Add Note"} >
+          <EditCustomer />
+        </CustomModal>
       </p>
     ),
   }

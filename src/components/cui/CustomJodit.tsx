@@ -60,7 +60,7 @@ function CustomJodit() {
         onChange={handleChange}
       />
       <div className="flex justify-end mt-4">
-        <button onClick={handleOnSave} className="inline-block w-100 px-10 py-2 bg-[#154370] hover:bg-[#154370]/90 text-white border border-gray-400 rounded transitionClr">Save</button>
+        <button onClick={handleOnSave} className="inline-block w-100 px-10 py-2 bg-[#272727] hover:bg-[#272727]/90 text-white border border-gray-400 rounded transitionClr">Save</button>
       </div>
     </div>
   );

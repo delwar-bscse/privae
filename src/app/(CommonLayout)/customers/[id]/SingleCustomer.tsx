@@ -11,6 +11,9 @@ import { noteColumns } from "@/tableColumns/noteColumns";
 import { reviewColumns } from "@/tableColumns/reviewColumns";
 import { IBooking, INotes, IReview } from "@/types/columnTypes";
 import { X } from "lucide-react";
+import EditCustomer from "./EditCustomer";
+import { CustomModal } from "@/components/cui/CustomModal";
+import Link from "next/link";
 
 
 export default function SingleCustomerComponent({ order }: { order: any }) {
@@ -83,8 +86,11 @@ export default function SingleCustomerComponent({ order }: { order: any }) {
           <X size={20} />
           Block User
         </button>
-        <button className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer">Edit</button>
-        <button className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer">Chat</button>
+        {/* <button className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer">Add Note</button> */}
+        <CustomModal trigger={<button className="bg-[#F2F2F2] rounded-sm px-3 py-2 text-gray-700 font-semibold cursor-pointer">Add Note</button>} title={"Add Note"} >
+          <EditCustomer />
+        </CustomModal>
+        <Link href="/messaging?id=1" className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer flex items-center">Chat</Link>
       </div>
     </div>
   );

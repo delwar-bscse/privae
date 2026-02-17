@@ -141,7 +141,9 @@ const Settings = () => {
               cookingAppliances.map((category, idx) => (
                 <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
                   <p>{category}</p>
-                  <RiEdit2Line className='size-3' />
+                  <CustomModal trigger={<RiEdit2Line className='size-3 cursor-pointer' />} title={"Add Kitchen-Preset"} >
+                    <AddEquipment />
+                  </CustomModal>
                 </div>
               ))
             }</div>
@@ -152,7 +154,9 @@ const Settings = () => {
               pansAndPots.map((category, idx) => (
                 <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
                   <p>{category}</p>
-                  <RiEdit2Line className='size-3' />
+                  <CustomModal trigger={<RiEdit2Line className='size-3 cursor-pointer' />} title={"Add Kitchen-Preset"} >
+                    <AddEquipment />
+                  </CustomModal>
                 </div>
               ))
             }</div>
@@ -163,7 +167,9 @@ const Settings = () => {
               kitchenTools.map((category, idx) => (
                 <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
                   <p>{category}</p>
-                  <RiEdit2Line className='size-3' />
+                  <CustomModal trigger={<RiEdit2Line className='size-3 cursor-pointer' />} title={"Add Kitchen-Preset"} >
+                    <AddEquipment />
+                  </CustomModal>
                 </div>
               ))
             }</div>
@@ -174,7 +180,9 @@ const Settings = () => {
               specialEquipment.map((category, idx) => (
                 <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
                   <p>{category}</p>
-                  <RiEdit2Line className='size-3' />
+                  <CustomModal trigger={<RiEdit2Line className='size-3 cursor-pointer' />} title={"Add Kitchen-Preset"} >
+                    <AddEquipment />
+                  </CustomModal>
                 </div>
               ))
             }</div>
@@ -190,34 +198,40 @@ const Settings = () => {
         <h2 className='text-lg text-gray-700 font-semibold border-b border-b-gray-100'>Dietary Preferences & Restrictions</h2>
         <div className='grid grid-cols-3 gap-6 w-full'>
           <div>
-            <p className='font-semibold px-1 pb-1'>Cooking Appliances</p>
+            <p className='font-semibold px-1 pb-1'>Allergies & Intolerance</p>
             <div className='flex flex-col gap-2'>{
               allergiesAndIntolerance.map((category, idx) => (
                 <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
                   <p>{category}</p>
-                  <RiEdit2Line className='size-3' />
+                  <CustomModal trigger={<RiEdit2Line className='size-3 cursor-pointer' />} title={"Add Dietary Preference & Restriction"} >
+                    <AddDietaryPreferenceRestriction />
+                  </CustomModal>
                 </div>
               ))
             }</div>
           </div>
           <div>
-            <p className='font-semibold  px-1 pb-1'>Pans & Pots</p>
+            <p className='font-semibold  px-1 pb-1'>Religious & Ethical Restrictions</p>
             <div className='flex flex-col gap-2'>{
               religiousEthicalRestrictions.map((category, idx) => (
                 <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
                   <p>{category}</p>
-                  <RiEdit2Line className='size-3' />
+                  <CustomModal trigger={<RiEdit2Line className='size-3 cursor-pointer' />} title={"Add Dietary Preference & Restriction"} >
+                    <AddDietaryPreferenceRestriction />
+                  </CustomModal>
                 </div>
               ))
             }</div>
           </div>
           <div>
-            <p className='font-semibold  px-1 pb-1'>Tools</p>
+            <p className='font-semibold  px-1 pb-1'>Preferences & Lifestyle</p>
             <div className='flex flex-col gap-2'>{
               preferencesLifestyle.map((category, idx) => (
                 <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
                   <p>{category}</p>
-                  <RiEdit2Line className='size-3' />
+                  <CustomModal trigger={<RiEdit2Line className='size-3 cursor-pointer' />} title={"Add Dietary Preference & Restriction"} >
+                    <AddDietaryPreferenceRestriction />
+                  </CustomModal>
                 </div>
               ))
             }</div>
