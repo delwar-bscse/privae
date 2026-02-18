@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next/client";
+import { toast } from "sonner";
+import { myFetch } from "@/utils/myFetch";
 
 type LoginFormValues = {
   email: string;
@@ -21,8 +24,25 @@ export default function LoginForm() {
   } = useForm<LoginFormValues>();
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-    console.log("Login Data:", data);
-    router.push("/");
+    const payload = {
+      email: data.email,
+      password: data.password,
+    }
+
+    const res = await myFetch("/auth/login", {
+      method: "POST",
+      body: payload
+    })
+
+    // console.log("Response Data:", res);
+    if (res.success) {
+      setCookie("accessToken", res?.data?.accessToken);
+      setCookie("userRole", res?.data?.role);
+      toast.success("Login successful!");
+      router.push("/");
+    } else {
+      toast.error(res.message || "Failed to login.");
+    }
   };
 
   return (

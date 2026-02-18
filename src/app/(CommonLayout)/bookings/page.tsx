@@ -5,6 +5,7 @@ import { dummyBookingDatas } from "@/datas/bookingData";
 import { CustomSearchBar } from "@/components/cui/CustomSearchBar";
 import CustomStep from "@/components/cui/CustomStep";
 import { StepDataType } from "@/types/type";
+import { myFetch } from "@/utils/myFetch";
 
 const stepDatas: StepDataType[] = [
   { id: 1, title: "All" },
@@ -20,6 +21,13 @@ const stepDatas: StepDataType[] = [
 const Bookings = async ({ searchParams }: { searchParams: any }) => {
   const { query, bookingStatus, page } = await searchParams;
   console.log("User management : ", query, bookingStatus, page)
+
+  const resBookings = await myFetch(`/order`, {
+    method: "GET",
+    tags: ['Bookings']
+  })
+
+  console.log("resBookings : ", resBookings.data[0])
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

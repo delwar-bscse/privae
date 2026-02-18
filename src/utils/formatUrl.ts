@@ -1,6 +1,6 @@
 
-export const formatImagePath = (path: string) => {
-  if (!path) return "";
+export const formatUrl = (path?: string) => {
+  if (!path || path === "" || path === undefined || path === null) return "";
 
   if (path.startsWith("http")) {
     return path;

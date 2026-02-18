@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 
@@ -25,9 +26,14 @@ const Sidebar = () => {
       id: "logout",
     });
 
-    deleteCookie('accessToken');
-    toast.success('Logged out successfully', { id: 'logout' });
-    router.push('/login');
+    try {
+      deleteCookie("accessToken");
+      deleteCookie("userRole");
+      toast.success("Logged out successfully", { id: "logout" });
+      router.push("/login");
+    } catch (error: any) {
+      toast.error(error.message, { id: "logout" });
+    }
   }
 
   return (
