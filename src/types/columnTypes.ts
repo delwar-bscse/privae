@@ -89,4 +89,5 @@ export interface IAccess {
   role: string;
   status: string;
   lastActivity: string;
+  image?: string;
 }

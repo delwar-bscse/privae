@@ -3,7 +3,7 @@ import React from "react";
 import { RiHomeLine } from "react-icons/ri";
 import { PiCreditCardLight } from "react-icons/pi";
 import { PiChefHatLight } from "react-icons/pi";
-import { PiChatTeardropText } from "react-icons/pi";
+// import { PiChatTeardropText } from "react-icons/pi";
 import { BiUser } from "react-icons/bi";
 import { TbToolsKitchen2 } from "react-icons/tb";
 import { PiReceipt } from "react-icons/pi";
@@ -43,11 +43,11 @@ export const sidebarData: TMenuItem[] = [
     title: "Payments & Discounts",
     label: "/payments-and-discounts",
   },
-  {
-    icon: <PiChatTeardropText />,
-    title: "Messaging",
-    label: "/messaging",
-  },
+  // {
+  //   icon: <PiChatTeardropText />,
+  //   title: "Messaging",
+  //   label: "/messaging",
+  // },
   {
     icon: <BiUser />,
     title: "Admin",

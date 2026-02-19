@@ -4,13 +4,36 @@ import CustomPagination from "@/components/cui/CustomPagination";
 // import { dummyBookingDatas } from "@/datas/bookingData";
 import { CustomSearchBar } from "@/components/cui/CustomSearchBar";
 import CustomerTable from "./CustomerTable";
-import { dummyCustomerDatas } from "@/datas/customerData";
+// import { dummyCustomerDatas } from "@/datas/customerData";
+import { myFetch } from "@/utils/myFetch";
+import { EUserRole } from "@/enums/userEnums";
 
 
 
 const Customers = async ({ searchParams }: { searchParams: any }) => {
   const { query, bookingStatus, page } = await searchParams;
   console.log("User management : ", query, bookingStatus, page)
+
+  const resCustomers = await myFetch(`/user?role=${EUserRole.CUSTOMER}&limit=20&page=${page}`, {
+    method: "GET",
+    tags: ['Customers']
+  })
+
+  const customers = resCustomers?.data?.map((item: any) => {
+    const rating = item?.avg_rating && Number(item?.avg_rating).toFixed(2)
+    return {
+      id: item?._id,
+      name: item?.name,
+      email: item?.email,
+      phone: item?.contact,
+      area: "10005",
+      bookings: item?.total_bookings,
+      rating: { score: rating, reviews: item?.total_rating },
+      lastBooking: item?.last_booking_date
+    }
+  }) || []
+
+  // console.log("Customers : ", customers)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">
@@ -21,10 +44,10 @@ const Customers = async ({ searchParams }: { searchParams: any }) => {
           </div>
         </div>
         <div className="pt-2">
-          <CustomerTable data={dummyCustomerDatas} />
+          <CustomerTable data={customers} />
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={5} qryName="page" />
+      <CustomPagination TOTAL_PAGES={resCustomers?.pagination?.totalPage} qryName="page" />
     </div>
   )
 }

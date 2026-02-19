@@ -1,9 +1,24 @@
-import { useState, useRef, useMemo, useCallback } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
+import { EDisclaimerType } from '@/enums/userEnums';
+import { myFetch } from '@/utils/myFetch';
 
-function CustomJodit() {
+function CustomJodit({ type }: { type: EDisclaimerType }) {
   const editor = useRef(null);
-  const [content, setContent] = useState('<p>Type something...</p>');
+  const [content, setContent] = useState('');
+
+  const getContent = async () => {
+    const res = await myFetch(`/disclaimer?type=${type}`, { method: "GET" });
+    console.log("Get Content : ", res)
+
+    if (res?.success) {
+      setContent(res?.data);
+    }
+  }
+  useEffect(() => {
+    if (type) { getContent() }
+  }, [type])
 
   const config = useMemo(
     () => ({
@@ -40,13 +55,14 @@ function CustomJodit() {
     setContent(newContent);
   }, []);
 
-  const handleChange = useCallback((newContent: string) => {
-    // You can handle onChange here if needed
-    console.log(newContent);
-  }, []);
-
-  const handleOnSave = () => {
+  const handleOnSave = async () => {
     console.log(content);
+    const payload = {
+      content: content,
+      type: type
+    }
+    const res = await myFetch(`/disclaimer`, { method: "POST", body: payload });
+    console.log("Update Content : ", res)
   }
 
   return (
@@ -57,7 +73,6 @@ function CustomJodit() {
         config={config}
         tabIndex={1}
         onBlur={handleBlur}
-        onChange={handleChange}
       />
       <div className="flex justify-end mt-4">
         <button onClick={handleOnSave} className="inline-block w-100 px-10 py-2 bg-[#272727] hover:bg-[#272727]/90 text-white border border-gray-400 rounded transitionClr">Save</button>

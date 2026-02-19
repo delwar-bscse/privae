@@ -1,34 +1,82 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
 import SingleSelect from "@/components/form/SingleSelect";
+import { myFetch } from "@/utils/myFetch";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { closedCustomModal } from "@/helpers/closedCustomModal";
+
+export enum EDietaryRestriction {
+  ALLERGIES_INTOLERANCE = 'Allergies & Intolerance',
+  RELIGIOUS_ETHICAL = 'Religious & Ethical Restrictions',
+  PREFERENCES_LIFESTYLE = 'Preferences & Lifestyle'
+}
 
 type AddEquipmentFormValues = {
   name: string;
-  preferenceCategory: string;
+  category: EDietaryRestriction;
 };
 
-const categoryOptions = [
-  "Allergens & Intolerance",
-  "Religious & Ethical Restrictions",
-  "Preferences & Lifestyle",
-];
+// const dietaryOptions = [
+//   "Allergens & Intolerance",
+//   "Religious & Ethical Restrictions",
+//   "Preferences & Lifestyle",
+// ];
+const dietaryOptions = Object.values(EDietaryRestriction);
 
-export default function AddDietaryPreferenceRestriction() {
+
+
+export default function AddDietaryPreferenceRestriction({ dietary }: { dietary?: any }) {
 
   const {
     register,
     handleSubmit,
     control,
+    reset
   } = useForm<AddEquipmentFormValues>({
     defaultValues: {
       name: "",
-      preferenceCategory: "",
+      category: EDietaryRestriction.ALLERGIES_INTOLERANCE,
     },
   });
 
-  const onSubmit = (data: AddEquipmentFormValues) => {
+  useEffect(() => {
+    if (dietary) {
+      reset({
+        name: dietary.name,
+        category: dietary.category,
+      });
+    }
+  }, [dietary]);
+
+  const onSubmit = async (data: AddEquipmentFormValues) => {
     console.log("Form Data:", data);
+    const payload = {
+      name: data.name,
+      category: data.category
+    }
+
+    let url = `/dietary`
+    if (dietary) { url = `/dietary/${dietary.id}` }
+    let method: "POST" | "PATCH" = "POST";
+    if (dietary) { method = "PATCH" }
+
+    const res = await myFetch(`${url}`, { method: method, body: payload });
+    console.log("Response Data:", res);
+
+    if (res?.success) {
+      const message = dietary ? "Dietary preference restriction updated successfully" : "Dietary preference restriction added successfully";
+      toast.success(message);
+      revalidate("admin_dietary");
+      closedCustomModal();
+    } else {
+      const message = dietary ? "Failed to update dietary preference restriction" : "Failed to add dietary preference restriction";
+      toast.error(res.message || message);
+    }
   };
 
   return (
@@ -57,13 +105,13 @@ export default function AddDietaryPreferenceRestriction() {
 
       {/* Preference Category */}
       <Controller
-        name="preferenceCategory"
+        name="category"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
           <SingleSelect
             label="Preference Category"
-            options={categoryOptions}
+            options={dietaryOptions}
             value={field.value}
             onChange={field.onChange}
             required

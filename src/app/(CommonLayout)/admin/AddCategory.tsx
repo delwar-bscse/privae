@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/incompatible-library */
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -9,6 +9,10 @@ import Image from "next/image";
 import { RiEdit2Line } from "react-icons/ri";
 
 import { category00 } from "@/app/assets/assets";
+import { myFetch } from "@/utils/myFetch";
+import { formatUrl } from "@/utils/formatUrl";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { closedCustomModal } from "@/helpers/closedCustomModal";
 
 type AddUserFormValues = {
   name: string;
@@ -16,7 +20,7 @@ type AddUserFormValues = {
 };
 
 
-const AddCategory = () => {
+const AddCategory = ({ category }: { category?: any }) => {
   const [preview, setPreview] = useState<string>("");
 
   const {
@@ -30,6 +34,15 @@ const AddCategory = () => {
     },
   });
 
+  useEffect(() => {
+    if (category) {
+      reset({
+        name: category.name,
+      });
+      setPreview(formatUrl(category.image));
+    }
+  }, [category]);
+
   const fileImage = watch("image");
 
   useEffect(() => {
@@ -42,24 +55,37 @@ const AddCategory = () => {
 
   // Submit handler
   const onSubmit = async (data: AddUserFormValues) => {
-    if (!data.image?.length) {
+    if (!category && !data.image?.length) {
       toast.error("Please select an image");
       return;
     }
 
     try {
-      console.log("Form Data:", data, data.image[0]);
-
       const formData = new FormData();
 
       formData.append("name", data.name);
-      formData.append("image", data.image[0]);
+      if (data.image?.[0]) { formData.append("image", data.image[0]); }
 
-      toast.success("User added successfully");
 
-      reset();
-      setPreview("");
+      let url = `/cusine`
+      if (category) { url = `/cusine/${category._id}` }
+      let method: "POST" | "PATCH" = "POST";
+      if (category) { method = "PATCH" }
+      const res = await myFetch(`${url}`, {
+        method: method,
+        body: formData,
+      });
+      console.log("Response Data:", res);
 
+      if (res?.success) {
+        const message = category ? "Category updated successfully" : "Category added successfully";
+        toast.success(message);
+        revalidate("admin_cusine");
+        closedCustomModal();
+      } else {
+        const message = category ? "Failed to update category" : "Failed to add category";
+        toast.error(res.message || message);
+      }
     } catch (error: any) {
       toast.error(error.message || "Failed to add user");
     }
@@ -68,7 +94,6 @@ const AddCategory = () => {
 
   return (
     <>
-
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}

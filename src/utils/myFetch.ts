@@ -69,7 +69,7 @@ export const myFetch = async (
         success: data?.success ?? true,
         message: data?.message,
         data: data?.data,
-        pagination: data?.meta,
+        pagination: data?.pagination,
         error: null,
       };
     }

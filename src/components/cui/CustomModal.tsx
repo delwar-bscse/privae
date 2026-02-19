@@ -38,7 +38,7 @@ export function CustomModal({
           <div className="py-4">{children}</div>
 
           <DialogFooter className="hidden">
-            <DialogClose id="cancelCustomModal" asChild>
+            <DialogClose id="closedCustomModal" asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
           </DialogFooter>

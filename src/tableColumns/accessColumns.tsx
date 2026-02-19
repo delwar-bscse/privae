@@ -5,6 +5,18 @@ import { GrLock } from "react-icons/gr";
 import dayjs from "dayjs";
 import { CustomModal } from "@/components/cui/CustomModal";
 import AddUser from "@/app/(CommonLayout)/admin/AddUser";
+import { myFetch } from "@/utils/myFetch";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { toast } from "sonner";
+
+const BlockUnblockUser = async(id: string) => {
+  const res = await myFetch(`/user/block-unblock-user/${id}`, { method: "PATCH" });
+  console.log("Block/Unblock User Res : ", res);
+  if(res?.success){
+    revalidate("Access");
+    toast.success(res?.message);
+  }
+}
 
 export const accessColumns: ColumnDef<IAccess>[] = [
   {
@@ -54,10 +66,10 @@ export const accessColumns: ColumnDef<IAccess>[] = [
     header: () => <div className="text-center">Action</div>,
     cell: ({ row }) => (
       <p className="flex items-center justify-center gap-1">
-        <CustomModal trigger={<RiEdit2Line onClick={() => console.log("Note Id : ", row.original.id)} className="size-6 cursor-pointer text-gray-600" />} title={"Edit User"} >
-          <AddUser />
+        <CustomModal trigger={<RiEdit2Line onClick={() => console.log("Note Id : ", row.original)} className="size-6 cursor-pointer text-gray-600" />} title={"Edit User"} >
+          <AddUser ExistUser={row.original}/>
         </CustomModal>
-        <GrLock onClick={() => console.log("Note Id : ", row.original.id)} className="size-5 cursor-pointer text-gray-600" />
+        <GrLock onClick={() => BlockUnblockUser(row.original.id)} className="size-5 cursor-pointer text-gray-600" />
       </p>
     ),
   }

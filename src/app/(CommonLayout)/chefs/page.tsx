@@ -1,14 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CustomPagination from "@/components/cui/CustomPagination";
 import { CustomSearchBar } from "@/components/cui/CustomSearchBar";
-import { dummyCustomerDatas } from "@/datas/customerData";
+// import { dummyCustomerDatas } from "@/datas/customerData";
 import ChefTable from "./ChefTable";
+import { myFetch } from "@/utils/myFetch";
+import { EUserRole } from "@/enums/userEnums";
 
 
 
 const Chefs = async ({ searchParams }: { searchParams: any }) => {
   const { query, bookingStatus, page } = await searchParams;
   console.log("User management : ", query, bookingStatus, page)
+
+   const resChefs = await myFetch(`/user?role=${EUserRole.CHEF}&limit=20&page=${page}`, {
+      method: "GET",
+      tags: ['Chefs']
+    })
+  
+    const chefs = resChefs?.data?.map((item: any) => {
+      const rating = item?.avg_rating && Number(item?.avg_rating).toFixed(2)
+      return {
+        id: item?._id,
+        name: item?.name,
+        email: item?.email,
+        phone: item?.contact,
+        area: "10005",
+        bookings: item?.total_bookings,
+        rating: { score: rating, reviews: item?.total_rating },
+        lastBooking: item?.last_booking_date
+      }
+    }) || []
+  
+    console.log("Customers : ", chefs)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">
@@ -19,10 +42,10 @@ const Chefs = async ({ searchParams }: { searchParams: any }) => {
           </div>
         </div>
         <div className="pt-2">
-          <ChefTable data={dummyCustomerDatas} />
+          <ChefTable data={chefs} />
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={5} qryName="page" />
+      <CustomPagination TOTAL_PAGES={resChefs?.pagination?.totalPage} qryName="page" />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CustomPagination from "@/components/cui/CustomPagination";
 import BookingTable from "./BookingTable";
-import { dummyBookingDatas } from "@/datas/bookingData";
+// import { dummyBookingDatas } from "@/datas/bookingData";
 import { CustomSearchBar } from "@/components/cui/CustomSearchBar";
 import CustomStep from "@/components/cui/CustomStep";
 import { StepDataType } from "@/types/type";
@@ -22,12 +22,28 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
   const { query, bookingStatus, page } = await searchParams;
   console.log("User management : ", query, bookingStatus, page)
 
-  const resBookings = await myFetch(`/order`, {
+  const resBookings = await myFetch(`/order?limit=20&page=${page}&searchTerm=${query}`, {
     method: "GET",
     tags: ['Bookings']
   })
 
-  console.log("resBookings : ", resBookings.data[0])
+  const bookings = resBookings?.data?.map((item: any) => {
+    return {
+      id: item?._id,
+      status: item?.status,
+      dateTime: item?.strTime,
+      chef: item?.chef?.name,
+      customer: item?.user?.name,
+      area: "",
+      items: 5,
+      estimatedTime: item?.duration,
+      actualTime: null,
+      rate: item?.rating,
+      updated: item?.updatedAt,
+    }
+  }) || []
+
+  // console.log("resBookings : ", resBookings)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">
@@ -39,10 +55,10 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
           </div>
         </div>
         <div className="pt-2">
-          <BookingTable data={dummyBookingDatas} />
+          <BookingTable data={bookings} />
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={5} qryName="page" />
+      <CustomPagination TOTAL_PAGES={resBookings?.pagination?.totalPage} qryName="page" />
     </div>
   )
 }

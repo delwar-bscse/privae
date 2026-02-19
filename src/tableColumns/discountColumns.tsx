@@ -70,7 +70,7 @@ export const discountColumns: ColumnDef<IDiscount>[] = [
     cell: ({ row }) => (
       <p className="flex items-center justify-center">
         <CustomModal trigger={<RiEdit2Line onClick={() => console.log("Note Id : ", row.original.id)} className="size-6 cursor-pointer text-gray-600" />} title={"Edit Promo Code"} >
-          <PromoCodeForm />
+          <PromoCodeForm id={row.original.id}/>
         </CustomModal>
       </p>
     ),

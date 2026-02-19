@@ -1,35 +1,71 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
 import SingleSelect from "@/components/form/SingleSelect";
+import { useEffect } from "react";
+import { myFetch } from "@/utils/myFetch";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { closedCustomModal } from "@/helpers/closedCustomModal";
 
 type AddEquipmentFormValues = {
   name: string;
-  preferenceCategory: string;
+  category: string;
 };
 
-const categoryOptions =  [
-  "Cooking Appliances",
-  "Pots & Pans",
-  "Tools",
-  "Special Equipment"
-];
+// const categoryOptions =  [
+//   "Cooking Appliances",
+//   "Pots & Pans",
+//   "Tools",
+//   "Special Equipment"
+// ];
 
-export default function AddEquipment() {
+export default function AddEquipment({equipment, cousineOptions}: {equipment?: any, cousineOptions?: any}) {
+
+  const categoryOptions = cousineOptions?.map((item: any) => item.name);
 
   const {
     register,
     handleSubmit,
     control,
+    reset
   } = useForm<AddEquipmentFormValues>({
     defaultValues: {
       name: "",
-      preferenceCategory: "",
+      category: "",
     },
   });
 
-  const onSubmit = (data: AddEquipmentFormValues) => {
-    console.log("Form Data:", data);
+  useEffect(() => {
+    if (equipment) {
+      reset({
+        name: equipment.name,
+        category: equipment.category,
+      });
+    }
+  }, [equipment]);
+
+  const onSubmit = async(data: AddEquipmentFormValues) => {
+    const selectCategory = cousineOptions?.find((item: any) => item.name === data.category);
+    console.log("Select Category:", selectCategory);
+
+    const formDate = new FormData();
+    formDate.append("name", data.name);
+    formDate.append("category", selectCategory._id);
+
+    let url = `/equipment`
+    if(equipment) { url = `/equipment/${equipment.id}` }
+    let method: "POST" | "PATCH" = "POST";
+    if(equipment) { method = "PATCH" }
+
+    const res = await myFetch(`${url}`, { method: method, body: formDate });
+    console.log("Response Data:", res);
+
+    if (res?.success) {
+      revalidate("admin_equipment");
+      closedCustomModal();
+    }
   };
 
   return (
@@ -58,7 +94,7 @@ export default function AddEquipment() {
 
       {/* Preference Category */}
       <Controller
-        name="preferenceCategory"
+        name="category"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (

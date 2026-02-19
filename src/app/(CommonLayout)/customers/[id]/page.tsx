@@ -6,11 +6,19 @@ import { ChevronRight } from "lucide-react";
 import { GoStarFill } from "react-icons/go";
 import Image from "next/image";
 import SingleCustomerComponent from "./SingleCustomer";
+import { myFetch } from "@/utils/myFetch";
 
-const SingleBookingPage = async({ params }: { params: any }) => {
+const SingleBookingPage = async ({ params }: { params: any }) => {
   const { id } = await params;
   console.log("Single Customer Id : ", id)
   const order: any = dymmySingleBookingData;
+
+  const resCustomer = await myFetch(`/user`, {
+    method: "GET",
+    tags: ['Customer']
+  })
+
+  console.log("Customer Details : ", resCustomer)
 
   return (
     <div>
@@ -20,13 +28,13 @@ const SingleBookingPage = async({ params }: { params: any }) => {
           <div>
             <p className="font-bold text-xl text-gray-800">Md. Delwar Hossain</p>
             <p className="flex items-center gap-1 text-gray-600">
-              <GoStarFill className="size-6 text-[#FD713F]"/>
+              <GoStarFill className="size-6 text-[#FD713F]" />
               4.5 (482 Reviews)
             </p>
           </div>
         </div>
         <p className="flex items-center gap-1 font-bold text-xl">
-          <span className="flex items-center text-gray-700">Bookings <ChevronRight className="size-6"/></span>
+          <span className="flex items-center text-gray-700">Bookings <ChevronRight className="size-6" /></span>
           <span className="text-[#FD713F]">ID {id}</span>
         </p>
       </div>

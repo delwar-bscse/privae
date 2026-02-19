@@ -1,6 +1,8 @@
 export enum EUserRole {
   ADMIN = "ADMIN",
   SUPER_ADMIN = "SUPER_ADMIN",
+  CUSTOMER = "CUSTOMER",
+  CHEF = "CHEF"
 }
 
 export enum EUserStatus {
@@ -21,4 +23,10 @@ export enum EUserSubscriptionStatus {
 export enum EUserSupportStatus {
   PENDING = "Pending",
   SOLVED = "Solved"
+}
+
+export enum EDisclaimerType {
+  TERMS = 'terms',
+  PRIVACY = 'privacy',
+  ABOUT = 'about'
 }

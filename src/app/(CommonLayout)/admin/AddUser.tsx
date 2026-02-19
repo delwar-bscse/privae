@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/incompatible-library */
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
@@ -19,17 +19,22 @@ import {
 } from "@/components/ui/select";
 
 import { userImage } from "@/app/assets/assets";
+import { myFetch } from "@/utils/myFetch";
+// import { IAccess } from "@/types/columnTypes";
+import { formatUrl } from "@/utils/formatUrl";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { closedCustomModal } from "@/helpers/closedCustomModal";
 
 type AddUserFormValues = {
   name: string;
   email: string;
   password: string;
-  role: string;
+  role: "ADMIN" | "SUPER_ADMIN";
   image?: FileList;
 };
 
 
-const AddUser = () => {
+const AddUser = ({ ExistUser }: { ExistUser?: Record<string, any> }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [preview, setPreview] = useState<string>("");
 
@@ -44,9 +49,26 @@ const AddUser = () => {
       name: "",
       email: "",
       password: "",
-      role: "",
+      role: "ADMIN",
     },
   });
+
+
+
+
+  useEffect(() => {
+    console.log("useEffect working - get single user", ExistUser)
+
+    if (ExistUser) {
+      reset({
+        name: ExistUser?.name,
+        email: ExistUser?.email,
+        role: ExistUser?.role,
+      });
+    }
+    setPreview(formatUrl(ExistUser?.image));
+
+  }, [ExistUser]);
 
   const fileImage = watch("image");
 
@@ -58,28 +80,58 @@ const AddUser = () => {
     // return () => URL.revokeObjectURL(previewUrl);
   }, [fileImage]);
 
+
+
+
   // Submit handler
   const onSubmit = async (data: AddUserFormValues) => {
-    if (!data.image?.length) {
+    if (!ExistUser && !data.image?.length) {
       toast.error("Please select an image");
       return;
     }
 
+    let url = "/admin";
+    if (ExistUser) {
+      url = `/admin/${ExistUser?.id}`;
+    }
+    let method: "POST" | "PATCH" = "POST";
+    if (ExistUser) {
+      method = "PATCH";
+    }
+
     try {
-      console.log("Form Data:", data, data.image[0]);
+      console.log("Form Data:", data);
 
       const formData = new FormData();
 
       formData.append("name", data.name);
       formData.append("email", data.email);
-      formData.append("password", data.password);
+      if (data.password) {
+        formData.append("password", data.password);
+      }
       formData.append("role", data.role);
-      formData.append("image", data.image[0]);
+      if (data?.image?.[0]) {
+        formData.append("image", data.image[0]);
+      }
 
-      toast.success("User added successfully");
+      const res = await myFetch(`${url}`, {
+        method: method,
+        body: formData
+      })
+      console.log("Add User Res :", res);
 
-      reset();
-      setPreview("");
+      if (res?.success) {
+        const message = ExistUser ? "User updated successfully" : "User added successfully";
+        toast.success(res?.message || message);
+        revalidate("Access");
+        closedCustomModal();
+      } else {
+        const message = ExistUser ? "User updated failed" : "User added failed";
+        toast.error(res?.message || message);
+        // reset();
+        // setPreview("");
+      }
+
 
     } catch (error: any) {
       toast.error(error.message || "Failed to add user");
@@ -101,7 +153,7 @@ const AddUser = () => {
             alt="user"
             width={80}
             height={80}
-            className="w-20 h-20 object-cover rounded-full"
+            className="w-20 h-20 object-contain rounded-full"
           />
 
           <input
@@ -152,7 +204,7 @@ const AddUser = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter password"
-              {...register("password", { required: true })}
+              {...register("password")}
               className="authinput"
             />
 
@@ -190,8 +242,8 @@ const AddUser = () => {
 
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="admin">Admin</SelectItem>
-                    <SelectItem value="super-admin">Super Admin</SelectItem>
+                    <SelectItem value="ADMIN">Admin</SelectItem>
+                    <SelectItem value="SUPER_ADMIN">Super Admin</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

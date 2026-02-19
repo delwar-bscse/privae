@@ -15,7 +15,7 @@ import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
 
 const MAX_PAGE_WINDOW = 5;
 
-function MyPaginationSuspense({ TOTAL_PAGES = 5, qryName = "page" }: { TOTAL_PAGES?: number, qryName?: string }) {
+function MyPaginationSuspense({ TOTAL_PAGES = 1, qryName = "page" }: { TOTAL_PAGES?: number, qryName?: string }) {
   const updateSearchParams = useUpdateSearchParams()
   const searchParams = useSearchParams();
 
