@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { category00, kitchen00, kitchen01, kitchen02, kitchen03 } from '@/app/assets/assets'
+import { category00, kitchen00 } from '@/app/assets/assets'
 import { CustomModal } from '@/components/cui/CustomModal'
 import Image from 'next/image'
 import AddCategory from './AddCategory'
@@ -10,31 +10,47 @@ import { RiEdit2Line } from 'react-icons/ri'
 import { myFetch } from '@/utils/myFetch'
 import { formatUrl } from '@/utils/formatUrl'
 
+// const categoryOptions =  [
+//   "Cooking Appliances",
+//   "Pots & Pans",
+//   "Tools",
+//   "Special Equipment"
+// ];
+
+enum EKitchenPresetType {
+  COOKING_APPLIANCES = 'Cooking Appliances',
+  POTS_PANS = 'Pots & Pans',
+  TOOLS = 'Tools',
+  SPECIAL_EQUIPMENT = 'Special Equipment'
+}
+
 const Settings = async () => {
 
-  // const dummyCategoriesData = [
-  //   { _id: 1, name: "Chinese", image: category01 },
-  //   { _id: 2, name: "American", image: category02 },
-  //   { _id: 3, name: "Italian", image: category03 },
-  //   { _id: 4, name: "Indian", image: category04 },
-  //   { _id: 5, name: "Japanese", image: category05 },
-  // ]
-
-  const dummyKitchenData = [
-    { _id: 1, name: "Standard Home Kitchen", image: kitchen01, tools: ["Oven", "stove-top", "basic pans", "knives"] },
-    { _id: 2, name: "Minimal Kitchen", image: kitchen02, tools: ["Stove-top only", "basic tools"] },
-    { _id: 3, name: "Well-Equipped", image: kitchen03, tools: ["Oven", "blender", "food processor", "grill pan"] },
-  ]
-
+  const resKitchenPreset = await myFetch("/equipment/kitchen-presets", { method: "GET", tags: ["admin_kitchen_preset"] });
   const resDietary = await myFetch("/dietary?listView=true", { method: "GET", tags: ["admin_dietary"] });
   const resEquipment = await myFetch("/equipment?type=list", { method: "GET", tags: ["admin_equipment"] });
   const resCousine = await myFetch("/cusine", { method: "GET", tags: ["admin_cusine"] });
-  const resCousineOptions = await myFetch("/equipment/category", { method: "GET"});
+  const resCousineOptions = await myFetch("/equipment/category", { method: "GET" });
+
+  const resPotsPans = await myFetch(`/equipment?category=Pots %26 Pans`, { method: "GET" });
+  const resCookingAppliances = await myFetch(`/equipment?category=${EKitchenPresetType.COOKING_APPLIANCES}`, { method: "GET" });
+  const resTools = await myFetch(`/equipment?category=${EKitchenPresetType.TOOLS}`, { method: "GET" });
+  const resSpecialEquipment = await myFetch(`/equipment?category=${EKitchenPresetType.SPECIAL_EQUIPMENT}`, { method: "GET" });
+
+  const options = {
+    applianceOptions: resCookingAppliances?.data,
+    pansOptions: resPotsPans?.data,
+    toolsOptions: resTools?.data,
+    equipmentOptions: resSpecialEquipment?.data,
+  }
+
 
   // console.log("Get Dietary : ", resDietary)
   // console.log("Get Equipment : ", resEquipment)
-  console.log("Get Cousine : ", resCousine)
-  console.log("Get Cousine Options : ", resCousineOptions)
+  // console.log("Get Cousine : ", resCousine)
+  // console.log("Get Cousine Options : ", resCousineOptions)
+  // console.log("Get Cousine Options : ", resKitchenPreset)
+  console.log("Dropdown List : ", options)
 
   return (
     <div className='space-y-8'>
@@ -42,13 +58,19 @@ const Settings = async () => {
       <div className='space-y-4'>
         <h2 className='text-lg text-gray-700 font-semibold'>Categories</h2>
         <div className='flex gap-2 flex-wrap'>
-          {resCousine?.data?.map((category: any) => (
+          {/* {resCousine?.data?.map((category: any) => (
             <CustomModal key={category._id} trigger={<div className='flex flex-col items-center'>
               <Image src={formatUrl(category.image)} width={1000} height={1000} alt={category.name} className='w-20 h-20 object-contain' />
               <h3>{category.name}</h3>
             </div>} title={"Add Category"} >
               <AddCategory category={category} />
             </CustomModal>
+          ))} */}
+          {resCousine?.data?.map((category: any) => (
+            <div key={category._id} className='flex flex-col items-center'>
+              <Image src={formatUrl(category.image)} width={1000} height={1000} alt={category.name} className='w-20 h-20 object-contain' />
+              <h3>{category.name}</h3>
+            </div>
           ))}
           <CustomModal trigger={<div className='flex flex-col items-center'>
             <Image src={category00} width={1000} height={1000} alt="New Category" className='w-20 h-20 object-contain' />
@@ -63,12 +85,12 @@ const Settings = async () => {
       <div className='space-y-4'>
         <h2 className='text-lg text-gray-700 font-semibold'>Kitchen-Presets</h2>
         <div className='grid grid-cols-2 gap-3 w-full max-w-200'>
-          {dummyKitchenData.map((category) => (
+          {resKitchenPreset?.data?.map((category: any) => (
             <div key={category._id} className='flex items-center gap-2 bg-gray-100 px-5 py-4 rounded-md'>
-              <Image src={category.image} width={1000} height={1000} alt={category.name} className='w-10 h-10 object-contain' />
+              <Image src={formatUrl(category?.image)} width={1000} height={1000} alt={category?.name} className='w-10 h-10 object-contain' />
               <div>
-                <h3>{category.name}</h3>
-                <p className='text-sm text-gray-500'>{category.tools.join(", ")}</p>
+                <h3>{category?.name}</h3>
+                <p className='text-sm text-gray-500'>{category?.items}</p>
               </div>
             </div>
           ))}
@@ -78,7 +100,7 @@ const Settings = async () => {
               <h3>Add New</h3>
             </div>
           </div>} title={"Add Kitchen-Preset"} >
-            <AddKitchenPreset />
+            <AddKitchenPreset options={options} />
           </CustomModal>
         </div>
       </div>

@@ -6,6 +6,7 @@ export type StepDataType = {
 
 export type KitchenPresetFormValues = {
   name: string;
+  image?: FileList;
   description: string;
   pansAndPots: string[];
   tools: string[];
