@@ -22,20 +22,21 @@ const CustomStepSuspense = ({
 
   // Get the current step from the search params, defaulting to the first step if not set
   const currentStep = searchParams.get(status);
-  useEffect(()=>{
-    updateMultipleSearchParams({ step: stepDatas[0].title, page: null, query: null });
-  },[]);
+  useEffect(() => {
+    if (!currentStep) {
+      updateMultipleSearchParams({ [status]: stepDatas[0].title, page: null, query: null });
+    }
+  }, []);
 
   // Style handling for the active step
   const handleStyle = (label?: string) => {
-    return `  py-1 hover:text-gray-50 hover:bg-[#272727] px-3 text-sm rounded-sm cursor-pointer transition-colors duration-500 ${
-      currentStep === label ? "bg-[#272727] text-gray-50" : "text-gray-700 bg-[#F2F2F2]"
-    }`;
+    return `  py-1 hover:text-gray-50 hover:bg-[#272727] px-3 text-sm rounded-sm cursor-pointer transition-colors duration-500 ${currentStep === label ? "bg-[#272727] text-gray-50" : "text-gray-700 bg-[#F2F2F2]"
+      }`;
   };
 
   // Handle step change when a user clicks on a step
   const handleStepChange = (label: string) => {
-    updateMultipleSearchParams({ step: label, page: null, query: null });
+    updateMultipleSearchParams({ [status]: label, page: null, query: null });
   };
 
   return (
@@ -62,7 +63,7 @@ const CustomStepSuspense = ({
 export default function CustomStep({
   stepDatas,
   className,
-  status = "step", // default value for status
+  status = "step",
 }: {
   stepDatas: StepDataType[];
   className?: string;

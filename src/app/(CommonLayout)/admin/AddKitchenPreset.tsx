@@ -10,6 +10,9 @@ import Image from "next/image";
 import { kitchen00 } from "@/app/assets/assets";
 import { RiEdit2Line } from "react-icons/ri";
 import { myFetch } from "@/utils/myFetch";
+import { closedCustomModal } from "@/helpers/closedCustomModal";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { toast } from "sonner";
 
 // const pansOptions = [
 //   "Large pot",
@@ -74,7 +77,7 @@ export default function AddKitchenPreset({ options }: { options: any }) {
   }, [fileImage]);
 
   const onSubmit = async(data: KitchenPresetFormValues) => {
-    console.log(data);
+    //console.log(data);
     const pansOptions = options?.pansOptions?.filter((item: any) => data.pansAndPots.includes(item.name)) || []
     const toolsOptions = options?.toolsOptions?.filter((item: any) => data.tools.includes(item.name)) || []
     const applianceOptions = options?.applianceOptions?.filter((item: any) => data.cookingAppliances.includes(item.name)) || []
@@ -84,7 +87,7 @@ export default function AddKitchenPreset({ options }: { options: any }) {
     }) || [];
 
     // console.log("items : ", pansOptions, toolsOptions, applianceOptions, equipmentOptions)
-    console.log("items : ", combinedOptions)
+    //console.log("items : ", combinedOptions)
 
     const formData = new FormData();
     formData.append("name", data.name);
@@ -100,7 +103,14 @@ export default function AddKitchenPreset({ options }: { options: any }) {
       method: "POST",
       body: formData,
     });
-    console.log("Response Data:", res);
+    // console.log("Response Data:", res);
+
+    if (res?.success) {
+      revalidate("admin_kitchen_preset");
+      closedCustomModal();
+    }else{
+      toast.error(res?.message);
+    }
 
   };
 

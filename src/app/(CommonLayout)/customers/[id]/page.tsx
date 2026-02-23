@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { dymmySingleBookingData } from "@/datas/bookingData";
+// import { dymmySingleBookingData } from "@/datas/bookingData";
 // import SingleBooking from "./SingleBooking";
 import { userImage } from "@/app/assets/assets";
 import { ChevronRight } from "lucide-react";
@@ -7,29 +7,31 @@ import { GoStarFill } from "react-icons/go";
 import Image from "next/image";
 import SingleCustomerComponent from "./SingleCustomer";
 import { myFetch } from "@/utils/myFetch";
+import { formatUrl } from "@/utils/formatUrl";
 
 const SingleBookingPage = async ({ params }: { params: any }) => {
   const { id } = await params;
   console.log("Single Customer Id : ", id)
-  const order: any = dymmySingleBookingData;
+  // const order: any = dymmySingleBookingData;
 
-  const resCustomer = await myFetch(`/user`, {
+  const resCustomer = await myFetch(`/user/${id}`, {
     method: "GET",
     tags: ['Customer']
   })
+  const customerDetails = resCustomer?.data
 
-  console.log("Customer Details : ", resCustomer)
+  // console.log("Customer Details : ", customerDetails)
 
   return (
     <div>
       <div className="flex justify-between items-center px-4 pb-8">
         <div className="flex items-center gap-3">
-          <Image src={userImage} width={100} height={100} alt="user Logo" className='w-16 h-16 object-cover rounded-full' />
+          <Image src={formatUrl(customerDetails?.image) || userImage} width={100} height={100} alt="user Logo" className='w-16 h-16 object-cover rounded-full' />
           <div>
-            <p className="font-bold text-xl text-gray-800">Md. Delwar Hossain</p>
+            <p className="font-bold text-xl text-gray-800">{customerDetails?.name}</p>
             <p className="flex items-center gap-1 text-gray-600">
               <GoStarFill className="size-6 text-[#FD713F]" />
-              4.5 (482 Reviews)
+              {`${customerDetails?.avg_rating} (${customerDetails?.total_rating} Reviews)`}
             </p>
           </div>
         </div>
@@ -38,7 +40,7 @@ const SingleBookingPage = async ({ params }: { params: any }) => {
           <span className="text-[#FD713F]">ID {id}</span>
         </p>
       </div>
-      <SingleCustomerComponent order={order} />
+      <SingleCustomerComponent customerDetails={customerDetails} id={id} />
     </div>
   )
 }

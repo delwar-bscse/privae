@@ -1,36 +1,28 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { closedCustomModal } from "@/helpers/closedCustomModal";
 import { revalidate } from "@/helpers/revalidateHelper";
 import { myFetch } from "@/utils/myFetch";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 type AddBookingFormValues = {
-  adminNotes: string;
+  reason: string;
 };
 
 
-const EditCustomer = ({ id, notes }: { id: string, notes?: string }) => {
+const DeleteBooking = ({ id }: { id: string }) => {
 
   const {
     register,
     handleSubmit,
-    reset,
   } = useForm<AddBookingFormValues>({
     defaultValues: {
-      adminNotes: "",
+      reason: "",
     },
   });
-
-  useEffect(() => {
-    if (notes) {
-      reset({ adminNotes: notes });
-    }
-  }, [notes]);
 
   // Submit handler
   const onSubmit = async (data: AddBookingFormValues) => {
@@ -38,26 +30,24 @@ const EditCustomer = ({ id, notes }: { id: string, notes?: string }) => {
     try {
       console.log("Form Data:", data);
       const payload = {
-        note: data.adminNotes,
-        type: "User" // 'User' | 'Order'
+        status: "Canceled",
+        cancel_reason: data.reason
       }
-      let method: "POST" | "PATCH" = "POST";
-      if (notes) { method = "PATCH" }
-      const res = await myFetch(`/user/admin-notes/${id}`, { method: method, body: payload });
+      const res = await myFetch(`/order/change-status/${id}`, { method: "PATCH", body: payload });
       console.log("Response Data:", res);
 
       if (res?.success) {
-        toast.success("Admin notes updated successfully");
-        revalidate("Customer");
+        toast.success("Booking cancelled successfully");
+        revalidate("Booking");
         closedCustomModal();
         // reset();
       } else {
-        toast.error(res.message || "Failed to update admin notes");
+        toast.error(res.message || "Failed to cancel booking");
       }
 
 
     } catch (error: any) {
-      toast.error(error.message || "Failed to add user");
+      toast.error(error.message || "Failed to cancel booking");
     }
   };
 
@@ -73,11 +63,11 @@ const EditCustomer = ({ id, notes }: { id: string, notes?: string }) => {
 
         {/* Address */}
         <div className="flex flex-col gap-1">
-          <label className="text-gray-700">Admin Notes</label>
+          <label className="text-gray-700">Cancel Reason</label>
           <input
             type="text"
-            placeholder="Admin Notes"
-            {...register("adminNotes", { required: true })}
+            placeholder="Type Reason"
+            {...register("reason", { required: true })}
             className="authinput"
           />
         </div>
@@ -94,4 +84,4 @@ const EditCustomer = ({ id, notes }: { id: string, notes?: string }) => {
   );
 };
 
-export default EditCustomer;
+export default DeleteBooking;

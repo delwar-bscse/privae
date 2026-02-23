@@ -25,7 +25,7 @@ const SingleBookingPage = async ({ params }: { params: any }) => {
           <span className="text-[#FD713F]">ID {id}</span>
         </p>
       </div>
-      <SingleBooking order={resBooking?.data} />
+      <SingleBooking order={resBooking?.data} id={id} />
     </div>
   )
 }

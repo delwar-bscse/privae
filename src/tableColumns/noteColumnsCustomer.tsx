@@ -5,12 +5,12 @@ import { RiEdit2Line } from "react-icons/ri";
 import { CustomModal } from "@/components/cui/CustomModal";
 import EditCustomer from "@/app/(CommonLayout)/customers/[id]/EditCustomer";
 
-export const noteColumns: ColumnDef<INotes>[] = [
+export const noteColumnsCustomer: ColumnDef<INotes>[] = [
   {
     accessorKey: "updatedAt",
     header: () => <div className="ps-2">Updated at</div>,
     cell: ({ row }) => (
-      <div className="capitalize ps-2">{dayjs(row.getValue("updatedAt")).format("DD-MMM-YYYY HH:mm A") }</div>
+      <div className="capitalize ps-2">{dayjs(row.getValue("updatedAt")).format("DD-MMM-YYYY HH:mm A")}</div>
     ),
   },
   {
@@ -32,8 +32,8 @@ export const noteColumns: ColumnDef<INotes>[] = [
     header: () => <div className="text-center">Action</div>,
     cell: ({ row }) => (
       <p className="flex items-center justify-center">
-          <CustomModal trigger={<RiEdit2Line onClick={()=>console.log("Note Id : ", row.original.id)} className="size-6 cursor-pointer text-gray-600"/>} title={"Add Note"} >
-          <EditCustomer />
+        <CustomModal trigger={<RiEdit2Line onClick={() => console.log("Note Id : ", row.original.id)} className="size-6 cursor-pointer text-gray-600" />} title={"Add Note"} >
+          <EditCustomer id={row.original.id} notes={row.original.note} />
         </CustomModal>
       </p>
     ),

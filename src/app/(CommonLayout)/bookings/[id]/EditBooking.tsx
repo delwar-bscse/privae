@@ -1,6 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { closedCustomModal } from "@/helpers/closedCustomModal";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { myFetch } from "@/utils/myFetch";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -9,7 +14,7 @@ type AddBookingFormValues = {
 };
 
 
-const EditBooking = () => {
+const EditBooking = ({ id, notes }: { id: string, notes?: string }) => {
 
   const {
     register,
@@ -21,13 +26,35 @@ const EditBooking = () => {
     },
   });
 
+  useEffect(() => {
+    if (notes) {
+      reset({ adminNotes: notes });
+    }
+  }, [notes]);
+
   // Submit handler
   const onSubmit = async (data: AddBookingFormValues) => {
 
     try {
       console.log("Form Data:", data);
-      toast.success("User added successfully");
-      reset();
+      const payload = {
+        note: data.adminNotes,
+        type: "Order" // 'User' | 'Order'
+      }
+      let method: "POST" | "PATCH" = "POST";
+      if (notes) { method = "PATCH" }
+      const res = await myFetch(`/user/admin-notes/${id}`, { method: method, body: payload });
+      console.log("Response Data:", res);
+
+      if (res?.success) {
+        toast.success("Admin notes updated successfully");
+        revalidate("Booking");
+        closedCustomModal();
+        // reset();
+      } else {
+        toast.error(res.message || "Failed to update admin notes");
+      }
+
 
     } catch (error: any) {
       toast.error(error.message || "Failed to add user");

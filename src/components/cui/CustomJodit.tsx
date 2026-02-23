@@ -3,6 +3,7 @@ import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { EDisclaimerType } from '@/enums/userEnums';
 import { myFetch } from '@/utils/myFetch';
+import { toast } from 'sonner';
 
 function CustomJodit({ type }: { type: EDisclaimerType }) {
   const editor = useRef(null);
@@ -10,7 +11,7 @@ function CustomJodit({ type }: { type: EDisclaimerType }) {
 
   const getContent = async () => {
     const res = await myFetch(`/disclaimer?type=${type}`, { method: "GET" });
-    console.log("Get Content : ", res)
+    //console.log("Get Content : ", res)
 
     if (res?.success) {
       setContent(res?.data);
@@ -23,7 +24,7 @@ function CustomJodit({ type }: { type: EDisclaimerType }) {
   const config = useMemo(
     () => ({
       readonly: false,
-      placeholder: 'Start typing...',
+      // placeholder: 'Start typing...',
       buttons: [
         'bold',
         'italic',
@@ -56,13 +57,19 @@ function CustomJodit({ type }: { type: EDisclaimerType }) {
   }, []);
 
   const handleOnSave = async () => {
-    console.log(content);
+    //console.log(content);
     const payload = {
       content: content,
       type: type
     }
     const res = await myFetch(`/disclaimer`, { method: "POST", body: payload });
-    console.log("Update Content : ", res)
+    //console.log("Update Content : ", res)
+
+    if (res?.success) {
+      toast.success("Content updated successfully");
+    }else{
+      toast.error(res?.message || "Failed to update content");
+    }
   }
 
   return (

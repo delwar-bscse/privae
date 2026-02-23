@@ -11,10 +11,18 @@ import { EUserRole } from "@/enums/userEnums";
 
 
 const Customers = async ({ searchParams }: { searchParams: any }) => {
-  const { query, bookingStatus, page } = await searchParams;
-  console.log("User management : ", query, bookingStatus, page)
+  const { query, page } = await searchParams;
+  console.log("Customers management : ", query, page)
 
-  const resCustomers = await myFetch(`/user?role=${EUserRole.CUSTOMER}&limit=20&page=${page}`, {
+  const queryParams = new URLSearchParams({
+    role: EUserRole.CUSTOMER,
+    limit: "20", // must be string
+    ...(query ? { searchTerm: query } : {}),
+    ...(page ? { page: page.toString() } : {}),
+  });
+
+  // role=${EUserRole.CUSTOMER}&
+  const resCustomers = await myFetch(`/user?${queryParams.toString()}`, {
     method: "GET",
     tags: ['Customers']
   })

@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link';
 import { userImage } from '@/app/assets/assets';
 import DashboardTitle from './DashboardTitle';
 import { myFetch } from '@/utils/myFetch';
@@ -32,7 +31,7 @@ const Header = async () => {
     <div className='flex justify-between items-center'>
       <DashboardTitle />
       <div className='h-full flex items-center justify-end gap-2 px-2 py-4'>
-        <Link id="goProfile" href={'/dashboard/profile'} className='h-full flex gap-3 items-center group bg-gray-50 rounded-lg px-2 py-1.5'>
+        <div className='h-full flex gap-3 items-center group bg-gray-50 rounded-lg px-2 py-1.5'>
           <div className='flex items-center justify-center'>
             <Image src={profile || userImage} width={100} height={100} alt="profileImage" className='w-12.5 h-12.5 rounded-full object-fit border' />
           </div>
@@ -40,7 +39,7 @@ const Header = async () => {
             <span className='font-semibold text-lg text-gray-800 group-hover:text-gray-500 transition-colors duration-300'>{user?.data?.name}</span>
             <span className='font-semibold text-sm text-gray-700 group-hover:text-gray-400 transition-colors duration-300 '>{formatRole(user?.data?.role)}</span>
           </p>
-        </Link>
+        </div>
       </div>
     </div>
   )

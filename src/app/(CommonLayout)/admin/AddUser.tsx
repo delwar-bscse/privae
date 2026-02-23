@@ -57,7 +57,7 @@ const AddUser = ({ ExistUser }: { ExistUser?: Record<string, any> }) => {
 
 
   useEffect(() => {
-    console.log("useEffect working - get single user", ExistUser)
+    //console.log("useEffect working - get single user", ExistUser)
 
     if (ExistUser) {
       reset({
@@ -100,7 +100,7 @@ const AddUser = ({ ExistUser }: { ExistUser?: Record<string, any> }) => {
     }
 
     try {
-      console.log("Form Data:", data);
+      //console.log("Form Data:", data);
 
       const formData = new FormData();
 
@@ -118,7 +118,7 @@ const AddUser = ({ ExistUser }: { ExistUser?: Record<string, any> }) => {
         method: method,
         body: formData
       })
-      console.log("Add User Res :", res);
+      //console.log("Add User Res :", res);
 
       if (res?.success) {
         const message = ExistUser ? "User updated successfully" : "User added successfully";

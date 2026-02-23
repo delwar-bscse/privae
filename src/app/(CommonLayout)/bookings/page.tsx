@@ -9,20 +9,33 @@ import { myFetch } from "@/utils/myFetch";
 
 const stepDatas: StepDataType[] = [
   { id: 1, title: "All" },
-  { id: 2, title: "Pending" },
-  { id: 3, title: "Confirmed" },
-  { id: 4, title: "Cooking" },
+  { id: 2, title: "Awaiting Confirmation" },
+  { id: 3, title: "Confirm" },
+  { id: 4, title: "Decline" },
   { id: 5, title: "Completed" },
   { id: 6, title: "Canceled" },
 ];
+
+export enum ORDER_STATUS {
+    AWAITING_CONFIRMATION = 'Awaiting Confirmation',
+    CONFIRM = 'Confirm',
+    DECLINE = 'Decline',
+    CANCELED = 'Canceled',
+    COMPLETED = 'Completed',
+}
 
 
 
 const Bookings = async ({ searchParams }: { searchParams: any }) => {
   const { query, bookingStatus, page } = await searchParams;
-  console.log("User management : ", query, bookingStatus, page)
+  console.log("Booking management : ", query, bookingStatus, page)
 
-  const resBookings = await myFetch(`/order?limit=20&page=${page}&searchTerm=${query}`, {
+  let status = bookingStatus
+  if(bookingStatus === "All"){
+    status = "";
+  }
+
+  const resBookings = await myFetch(`/order?limit=20&status=${status}&page=${page}&searchTerm=${query}`, {
     method: "GET",
     tags: ['Bookings']
   })
@@ -49,7 +62,7 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
     <div className="px-8 flex flex-col min-h-[86vh]">
       <div className="flex-1">
         <div className="w-full flex justify-between items-center pt-4">
-          <CustomStep stepDatas={stepDatas} status="step" />
+          <CustomStep stepDatas={stepDatas} status="bookingStatus" />
           <div className='w-60 xl:w-100'>
             <CustomSearchBar placeholder="Search here..." />
           </div>

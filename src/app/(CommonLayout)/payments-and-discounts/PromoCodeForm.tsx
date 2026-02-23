@@ -37,7 +37,7 @@ export default function PromoCodeForm({ id }: { id?: string }) {
     const resDiscount = await myFetch(`/coupon/${id}`, {
       method: "GET",
     });
-    console.log("Response Data:", resDiscount);
+    //console.log("Response Data:", resDiscount);
 
     if (resDiscount?.success) {
       reset({
@@ -60,7 +60,7 @@ export default function PromoCodeForm({ id }: { id?: string }) {
   }, [id]);
 
   const onSubmit = async (data: PromoCodeFormValues) => {
-    console.log("Form Data:", data);
+    //console.log("Form Data:", data);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const start = new Date(data?.from);
@@ -90,7 +90,7 @@ export default function PromoCodeForm({ id }: { id?: string }) {
       expiry: data?.until,
       status: data?.status
     };
-    console.log("Payload Data:", payload);
+    //console.log("Payload Data:", payload);
 
     let url = `/coupon`;
     if (id) {
@@ -106,7 +106,7 @@ export default function PromoCodeForm({ id }: { id?: string }) {
       body: payload
     });
 
-    console.log("Response Data:", resDiscount);
+    //console.log("Response Data:", resDiscount);
 
     if (resDiscount?.success) {
       toast.success("Promo Code added successfully");

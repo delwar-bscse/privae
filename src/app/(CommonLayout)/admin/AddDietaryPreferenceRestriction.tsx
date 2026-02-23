@@ -54,7 +54,7 @@ export default function AddDietaryPreferenceRestriction({ dietary }: { dietary?:
   }, [dietary]);
 
   const onSubmit = async (data: AddEquipmentFormValues) => {
-    console.log("Form Data:", data);
+    //console.log("Form Data:", data);
     const payload = {
       name: data.name,
       category: data.category
@@ -66,7 +66,7 @@ export default function AddDietaryPreferenceRestriction({ dietary }: { dietary?:
     if (dietary) { method = "PATCH" }
 
     const res = await myFetch(`${url}`, { method: method, body: payload });
-    console.log("Response Data:", res);
+    //console.log("Response Data:", res);
 
     if (res?.success) {
       const message = dietary ? "Dietary preference restriction updated successfully" : "Dietary preference restriction added successfully";

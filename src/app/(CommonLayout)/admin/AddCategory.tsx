@@ -75,7 +75,7 @@ const AddCategory = ({ category }: { category?: any }) => {
         method: method,
         body: formData,
       });
-      console.log("Response Data:", res);
+      //console.log("Response Data:", res);
 
       if (res?.success) {
         const message = category ? "Category updated successfully" : "Category added successfully";
