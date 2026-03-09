@@ -7,6 +7,7 @@ import CustomerTable from "./CustomerTable";
 // import { dummyCustomerDatas } from "@/datas/customerData";
 import { myFetch } from "@/utils/myFetch";
 import { EUserRole } from "@/enums/userEnums";
+import dayjs from "dayjs";
 
 
 
@@ -31,17 +32,17 @@ const Customers = async ({ searchParams }: { searchParams: any }) => {
     const rating = item?.avg_rating && Number(item?.avg_rating).toFixed(2)
     return {
       id: item?._id,
-      name: item?.name,
-      email: item?.email,
-      phone: item?.contact,
+      name: item?.name || "N/A",
+      email: item?.email || "N/A",
+      phone: item?.contact || "N/A",
       area: "10005",
       bookings: item?.total_bookings,
       rating: { score: rating, reviews: item?.total_rating },
-      lastBooking: item?.last_booking_date
+      lastBooking: item?.last_booking_date ? dayjs(item?.last_booking_date).format("DD-MMM-YYYY HH:mm A") : "N/A",
     }
   }) || []
 
-  // console.log("Customers : ", customers)
+  console.log("Customers : ", resCustomers)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

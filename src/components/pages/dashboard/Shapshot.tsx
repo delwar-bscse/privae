@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from 'react';
@@ -12,21 +13,21 @@ import {
 } from 'recharts';
 
 // Mock data reflecting the upward trend in your image
-const data = [
-  { day: 'Mon', value: 0 }, { day: '', value: 600 }, { day: '', value: 500 }, { day: '', value: 800 },
-  { day: 'Tue', value: 1200 }, { day: '', value: 1500 }, { day: '', value: 1000 }, { day: '', value: 1100 },
-  { day: 'Wed', value: 1900 }, { day: '', value: 1800 }, { day: '', value: 2100 }, { day: '', value: 1900 },
-  { day: 'Thu', value: 1600 }, { day: '', value: 1400 }, { day: '', value: 1800 }, { day: '', value: 2000 },
-  { day: 'Fri', value: 2400 }, { day: '', value: 2100 }, { day: '', value: 2300 }, { day: '', value: 2000 },
-  { day: 'Sat', value: 2700 }, { day: '', value: 2600 }, { day: '', value: 2500 }, { day: '', value: 2800 },
-  { day: 'Sun', value: 3300 }, { day: '', value: 2800 },
-];
+// const data = [
+//   { label: 'Mon', value: 0 }, { label: '', value: 600 }, { label: '', value: 500 }, { label: '', value: 800 },
+//   { label: 'Tue', value: 1200 }, { label: '', value: 1500 }, { label: '', value: 1000 }, { label: '', value: 1100 },
+//   { label: 'Wed', value: 1900 }, { label: '', value: 1800 }, { label: '', value: 2100 }, { label: '', value: 1900 },
+//   { label: 'Thu', value: 1600 }, { label: '', value: 1400 }, { label: '', value: 1800 }, { label: '', value: 2000 },
+//   { label: 'Fri', value: 2400 }, { label: '', value: 2100 }, { label: '', value: 2300 }, { label: '', value: 2000 },
+//   { label: 'Sat', value: 2700 }, { label: '', value: 2600 }, { label: '', value: 2500 }, { label: '', value: 2800 },
+//   { label: 'Sun', value: 3300 }, { label: '', value: 2800 },
+// ];
 
-const Shapshot = () => {
+const Shapshot = ({grapsValue}:{grapsValue: any}) => {
   return (
     <div className="w-full h-100 p-6 bg-[#f5f5f5] rounded-3xl shadow-sm">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+        <AreaChart data={grapsValue} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
           <defs>
             {/* Gradient matching the orange fill in the image */}
             <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -42,7 +43,7 @@ const Shapshot = () => {
           />
           
           <XAxis 
-            dataKey="day" 
+            dataKey="label" 
             axisLine={false} 
             tickLine={false} 
             tick={{ fill: '#888', fontSize: 12 }}

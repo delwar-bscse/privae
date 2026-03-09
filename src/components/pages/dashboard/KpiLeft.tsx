@@ -1,22 +1,28 @@
 import { ArrowUpRight } from 'lucide-react';
 
-export default function KpiLeft() {
+export type Props = {
+  title: string;
+  value: string;
+  growth: string;
+}
+
+export default function KpiLeft({analytic}:{analytic:Props}) {
   return (
     <div className="w-60 px-2 py-3 bg-[#222222] rounded-lg font-sans text-white shadow-xl">
       {/* Header */}
       <h3 className="text-gray-300 text-lg font-medium mb-2">
-        Total Revenue
+        {analytic.title}
       </h3>
 
       {/* Main Value */}
       <div className="text-2xl font-bold tracking-tight mb-4">
-        $1,289,280
+        {analytic.value}
       </div>
 
       {/* Growth Metric */}
       <div className="flex items-center gap-1 mb-4">
         <ArrowUpRight className="text-green-500 w-5 h-5" strokeWidth={3} />
-        <span className="text-green-500 text-sm">9.48%</span>
+        <span className="text-green-500 text-sm">{analytic.growth}</span>
         <span className="text-gray-300 text-sm">higher than last week</span>
       </div>
 

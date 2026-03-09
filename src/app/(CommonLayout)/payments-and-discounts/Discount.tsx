@@ -12,7 +12,7 @@ const Discount = ({ data }: { data: IDiscount[] }) => {
       <CustomTable2<IDiscount> columns={discountColumns} data={data} />
       {/* Actions */}
       <div className="flex gap-3 pt-8">
-        <CustomModal trigger={<button className="bg-[#F2F2F2] rounded-sm px-3 py-2 text-gray-700 font-semibold cursor-pointer">Add Promo Code</button>} title={"Add Promo Code"} >
+        <CustomModal trigger={<button className="bg-[#F2F2F2] rounded-sm px-3 py-2 text-gray-700 font-semibold cursor-pointer">Add Promo Code</button>} title={"Add Promo Code"} contentClass="w-[500px]">
           <PromoCodeForm />
         </CustomModal>
       </div>

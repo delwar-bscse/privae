@@ -18,7 +18,7 @@ const SingleChefPage = async ({ params }: { params: any }) => {
   })
   const chefDetails = resChef?.data
 
-  // console.log("Chef Details : ", chefDetails)
+  console.log("Chef Details : ", chefDetails)
 
   return (
     <div>
@@ -34,7 +34,7 @@ const SingleChefPage = async ({ params }: { params: any }) => {
           </div>
         </div>
         <p className="flex items-center gap-1 font-bold text-xl">
-          <span className="flex items-center text-gray-700">Bookings <ChevronRight className="size-6" /></span>
+          <span className="flex items-center text-gray-700">Chefs <ChevronRight className="size-6" /></span>
           <span className="text-[#FD713F]">ID {id}</span>
         </p>
       </div>

@@ -2,6 +2,7 @@
 
 export interface IBooking {
   id: string;
+  order_id: string;
   status: string;
   dateTime: string;
   chef: string;

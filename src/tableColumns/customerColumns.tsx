@@ -1,6 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
 import {  ICustomer} from "@/types/columnTypes";
-import dayjs from "dayjs";
 
 export const customerColumns: ColumnDef<ICustomer>[] = [
   {
@@ -59,7 +58,7 @@ export const customerColumns: ColumnDef<ICustomer>[] = [
     accessorKey: "lastBooking",
     header: () => <div className="">Last Booking</div>,
     cell: ({ row }) => (
-      <div className="">{dayjs(row.getValue("lastBooking")).format("DD-MMM-YYYY HH:mm A")}</div>
+      <div className="">{row.getValue("lastBooking")}</div>
     ),
   },
 ]

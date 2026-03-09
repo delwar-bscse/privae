@@ -27,6 +27,7 @@ export default function SingleCustomerComponent({ customerDetails, id }: { custo
   const bookingHistory = customerDetails?.bookingHistory?.map((item: any) => {
     return {
       id: item._id,
+      order_id: item?.order_id,
       status: item.status,
       dateTime: item.formatted_date,
       chef: item.chef.name,

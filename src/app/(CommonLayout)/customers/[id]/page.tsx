@@ -20,7 +20,7 @@ const SingleBookingPage = async ({ params }: { params: any }) => {
   })
   const customerDetails = resCustomer?.data
 
-  // console.log("Customer Details : ", customerDetails)
+  console.log("Customer Details : ", customerDetails)
 
   return (
     <div>
@@ -36,7 +36,7 @@ const SingleBookingPage = async ({ params }: { params: any }) => {
           </div>
         </div>
         <p className="flex items-center gap-1 font-bold text-xl">
-          <span className="flex items-center text-gray-700">Bookings <ChevronRight className="size-6" /></span>
+          <span className="flex items-center text-gray-700">Customers <ChevronRight className="size-6" /></span>
           <span className="text-[#FD713F]">ID {id}</span>
         </p>
       </div>

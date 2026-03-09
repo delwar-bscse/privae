@@ -59,11 +59,18 @@ const PaymentAndDiscounts = async ({ searchParams }: { searchParams: any }) => {
   })
 
   const discounts = resDiscounts?.data?.map((item: any) => {
+    let typeValue = "0";
+    if (item?.type === "percentage" && item?.discount) {
+      typeValue = `${item.discount}%`
+    } else if (item?.type === "fixed" && item?.amount) {
+      typeValue = `$${item?.amount}`
+    }
+
     return {
       id: item?._id,
       code: item?.custom_code,
-      type: `${item?.discount || 0}%`,
-      appliesTo: "First Booking",
+      type: typeValue,
+      appliesTo: item?.eligible_for,
       minimumOrder: 100.00,
       usage: { used: 34, total: 100 },
       status: item?.status,
@@ -72,7 +79,8 @@ const PaymentAndDiscounts = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  //console.log("Transactions : ", resDiscounts)
+  console.log("Transactions Data : ", resTransactions)
+  console.log("Discounts Data : ", resDiscounts)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

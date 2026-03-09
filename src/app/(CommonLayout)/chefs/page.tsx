@@ -5,6 +5,7 @@ import { CustomSearchBar } from "@/components/cui/CustomSearchBar";
 import ChefTable from "./ChefTable";
 import { myFetch } from "@/utils/myFetch";
 import { EUserRole } from "@/enums/userEnums";
+import dayjs from "dayjs";
 
 
 
@@ -34,11 +35,11 @@ const Chefs = async ({ searchParams }: { searchParams: any }) => {
       area: "10005",
       bookings: item?.total_bookings,
       rating: { score: rating, reviews: item?.total_rating },
-      lastBooking: item?.last_booking_date
+      lastBooking: item?.last_booking_date ? dayjs(item?.last_booking_date).format("DD-MMM-YYYY HH:mm A") : "N/A",
     }
   }) || []
 
-  console.log("Customers : ", chefs)
+  console.log("res Chefs : ", resChefs)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

@@ -16,13 +16,13 @@ const stepDatas: StepDataType[] = [
   { id: 6, title: "Canceled" },
 ];
 
-export enum ORDER_STATUS {
-    AWAITING_CONFIRMATION = 'Awaiting Confirmation',
-    CONFIRM = 'Confirm',
-    DECLINE = 'Decline',
-    CANCELED = 'Canceled',
-    COMPLETED = 'Completed',
-}
+// export enum ORDER_STATUS {
+//   AWAITING_CONFIRMATION = 'Awaiting Confirmation',
+//   CONFIRM = 'Confirm',
+//   DECLINE = 'Decline',
+//   CANCELED = 'Canceled',
+//   COMPLETED = 'Completed',
+// }
 
 
 
@@ -31,20 +31,29 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
   console.log("Booking management : ", query, bookingStatus, page)
 
   let status = bookingStatus
-  if(bookingStatus === "All"){
+  if (bookingStatus === "All") {
     status = "";
   }
 
-  const resBookings = await myFetch(`/order?limit=20&status=${status}&page=${page}&searchTerm=${query}`, {
+  const queryParams = new URLSearchParams({
+    limit: "20",
+    ...(status ? { status: status } : {}),
+    ...(query ? { searchTerm: query } : {}),
+    ...(page ? { page: page.toString() } : {}),
+  });
+
+  const resBookings = await myFetch(`/order?${queryParams.toString()}`, {
     method: "GET",
     tags: ['Bookings']
   })
 
+
   const bookings = resBookings?.data?.map((item: any) => {
     return {
       id: item?._id,
+      order_id: item?.order_id,
       status: item?.status,
-      dateTime: item?.strTime,
+      dateTime: item?.deadline,
       chef: item?.chef?.name,
       customer: item?.user?.name,
       area: "",
@@ -56,7 +65,7 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  // console.log("resBookings : ", resBookings)
+  console.log("resBookings : ", resBookings)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">
@@ -64,7 +73,7 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
         <div className="w-full flex justify-between items-center pt-4">
           <CustomStep stepDatas={stepDatas} status="bookingStatus" />
           <div className='w-60 xl:w-100'>
-            <CustomSearchBar placeholder="Search here..." />
+            <CustomSearchBar placeholder="Search by Order ID..." />
           </div>
         </div>
         <div className="pt-2">

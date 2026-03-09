@@ -4,10 +4,10 @@ import dayjs from "dayjs";
 
 export const bookingColumns: ColumnDef<IBooking>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "order_id",
     header: () => <div className="ps-2">Booking ID</div>,
     cell: ({ row }) => (
-      <div className="capitalize ps-2">{row.getValue("id")}</div>
+      <div className="capitalize ps-2">{row.getValue("order_id")}</div>
     ),
   },
   {
