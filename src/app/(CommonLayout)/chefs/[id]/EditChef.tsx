@@ -37,7 +37,7 @@ const EditChef = ({ id, notes }: { id: string, notes?: string }) => {
   const onSubmit = async (data: AddBookingFormValues) => {
 
     try {
-      console.log("Form Data:", data);
+      //console.log("Form Data:", data);
       const payload = {
         note: data.adminNotes,
         type: "User" // 'User' | 'Order'
@@ -45,7 +45,7 @@ const EditChef = ({ id, notes }: { id: string, notes?: string }) => {
       let method: "POST" | "PATCH" = "POST";
       if (notes) { method = "PATCH" }
       const res = await myFetch(`/user/admin-notes/${id}`, { method: method, body: payload });
-      console.log("Response Data:", res);
+      //console.log("Response Data:", res);
 
       if (res?.success) {
         toast.success("Admin notes updated successfully");

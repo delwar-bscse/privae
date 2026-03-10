@@ -140,7 +140,7 @@ export default function SingleCustomerComponent({ customerDetails, id }: { custo
         <CustomModal trigger={<button className="bg-[#F2F2F2] rounded-sm px-3 py-2 text-gray-700 font-semibold cursor-pointer">Add Note</button>} title={"Add Note"} >
           <EditCustomer id={id} />
         </CustomModal>
-        <Link href="/messaging?id=1" className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer flex items-center">Chat</Link>
+        <Link href="/?id=1" className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer flex items-center">Chat</Link>
       </div>
     </div>
   );

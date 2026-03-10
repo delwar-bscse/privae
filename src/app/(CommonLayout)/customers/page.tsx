@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 
 const Customers = async ({ searchParams }: { searchParams: any }) => {
   const { query, page } = await searchParams;
-  console.log("Customers management : ", query, page)
+  //console.log("Customers management : ", query, page)
 
   const queryParams = new URLSearchParams({
     role: EUserRole.CUSTOMER,
@@ -42,7 +42,7 @@ const Customers = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  console.log("Customers : ", resCustomers)
+  //console.log("Customers : ", resCustomers)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

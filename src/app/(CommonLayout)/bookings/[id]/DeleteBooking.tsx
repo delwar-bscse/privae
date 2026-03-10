@@ -28,13 +28,13 @@ const DeleteBooking = ({ id }: { id: string }) => {
   const onSubmit = async (data: AddBookingFormValues) => {
 
     try {
-      console.log("Form Data:", data);
+      // console.log("Form Data:", data);
       const payload = {
         status: "Canceled",
         cancel_reason: data.reason
       }
       const res = await myFetch(`/order/change-status/${id}`, { method: "PATCH", body: payload });
-      console.log("Response Data:", res);
+      // console.log("Response Data:", res);
 
       if (res?.success) {
         toast.success("Booking cancelled successfully");

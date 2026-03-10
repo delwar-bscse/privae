@@ -11,7 +11,7 @@ import { formatUrl } from "@/utils/formatUrl";
 
 const SingleBookingPage = async ({ params }: { params: any }) => {
   const { id } = await params;
-  console.log("Single Customer Id : ", id)
+  //console.log("Single Customer Id : ", id)
   // const order: any = dymmySingleBookingData;
 
   const resCustomer = await myFetch(`/user/${id}`, {
@@ -20,7 +20,7 @@ const SingleBookingPage = async ({ params }: { params: any }) => {
   })
   const customerDetails = resCustomer?.data
 
-  console.log("Customer Details : ", customerDetails)
+  //console.log("Customer Details : ", customerDetails)
 
   return (
     <div>

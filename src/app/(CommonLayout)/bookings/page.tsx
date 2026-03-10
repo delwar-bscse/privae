@@ -28,7 +28,7 @@ const stepDatas: StepDataType[] = [
 
 const Bookings = async ({ searchParams }: { searchParams: any }) => {
   const { query, bookingStatus, page } = await searchParams;
-  console.log("Booking management : ", query, bookingStatus, page)
+  // console.log("Booking management : ", query, bookingStatus, page)
 
   let status = bookingStatus
   if (bookingStatus === "All") {
@@ -65,7 +65,7 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  console.log("resBookings : ", resBookings)
+  // console.log("resBookings : ", resBookings)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

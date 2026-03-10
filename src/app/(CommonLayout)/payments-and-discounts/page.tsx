@@ -21,7 +21,7 @@ const stepDatas: StepDataType[] = [
 
 const PaymentAndDiscounts = async ({ searchParams }: { searchParams: any }) => {
   const { query, step, page } = await searchParams;
-  console.log("Payment And Discounts : ", query, page, step)
+  //console.log("Payment And Discounts : ", query, page, step)
 
   const queryParamsTransaction = new URLSearchParams({
     limit: "18",
@@ -79,8 +79,8 @@ const PaymentAndDiscounts = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  console.log("Transactions Data : ", resTransactions)
-  console.log("Discounts Data : ", resDiscounts)
+  //console.log("Transactions Data : ", resTransactions)
+  //console.log("Discounts Data : ", resDiscounts)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

@@ -6,7 +6,7 @@ import { myFetch } from "@/utils/myFetch";
 
 const SingleBookingPage = async ({ params }: { params: any }) => {
   const { id } = await params;
-  console.log("Single Booking Id : ", id)
+  //console.log("Single Booking Id : ", id)
   // const order: any = dymmySingleBookingData;
 
   const resBooking:any = await myFetch(`/order/${id}`, {
@@ -14,7 +14,7 @@ const SingleBookingPage = async ({ params }: { params: any }) => {
     tags: ['Booking']
   })
 
-  console.log("Booking Details : ", resBooking)
+  //console.log("Booking Details : ", resBooking)
 
   return (
     <div>

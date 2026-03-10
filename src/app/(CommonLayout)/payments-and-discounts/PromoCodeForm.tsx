@@ -117,7 +117,7 @@ export default function PromoCodeForm({ id }: { id?: string }) {
       body: payload
     });
 
-    console.log("Response Data:", resDiscount);
+    //console.log("Response Data:", resDiscount);
 
     if (resDiscount?.success) {
       toast.success("Promo Code added successfully");

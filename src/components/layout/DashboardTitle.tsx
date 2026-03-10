@@ -7,7 +7,7 @@ export enum SidebarRoute {
   CUSTOMERS = "/customers",
   CHEFS = "/chefs",
   PAYMENTS_AND_DISCOUNTS = "/payments-and-discounts",
-  MESSAGING = "/messaging",
+  // MESSAGING = "/messaging",
   ADMIN = "/admin",
 }
 
@@ -27,8 +27,8 @@ const DashboardTitle = () => {
         return "Chef 👨‍🍳";
       case SidebarRoute.PAYMENTS_AND_DISCOUNTS:
         return "Payments & Discounts 💰";
-      case SidebarRoute.MESSAGING:
-        return "Chats 💬";
+      // case SidebarRoute.MESSAGING:
+      //   return "Chats 💬";
       case SidebarRoute.ADMIN:
         return "Admin 🛠️";
       default:

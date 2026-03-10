@@ -29,7 +29,7 @@ export default function PlatformFees() {
 
   const getPlatformFees = async () => {
     const res = await myFetch("/admin/platform-charge", { method: "GET" });
-    console.log("Get Platform Fees : ", res)
+    //console.log("Get Platform Fees : ", res)
 
     if (res?.success) {
       reset({

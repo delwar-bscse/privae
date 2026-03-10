@@ -10,7 +10,7 @@ import { formatUrl } from "@/utils/formatUrl";
 
 const SingleChefPage = async ({ params }: { params: any }) => {
   const { id } = await params;
-  console.log("Single Customer Id : ", id)
+  //console.log("Single Customer Id : ", id)
 
   const resChef = await myFetch(`/user/${id}`, {
     method: "GET",
@@ -18,7 +18,7 @@ const SingleChefPage = async ({ params }: { params: any }) => {
   })
   const chefDetails = resChef?.data
 
-  console.log("Chef Details : ", chefDetails)
+  //console.log("Chef Details : ", chefDetails)
 
   return (
     <div>

@@ -50,7 +50,7 @@ const Settings = async () => {
   // console.log("Get Cousine : ", resCousine)
   // console.log("Get Cousine Options : ", resCousineOptions)
   // console.log("Get Cousine Options : ", resKitchenPreset)
-  console.log("Dropdown List : ", options)
+  // console.log("Dropdown List : ", options)
 
   return (
     <div className='space-y-8'>

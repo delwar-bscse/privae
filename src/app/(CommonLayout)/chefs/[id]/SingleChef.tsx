@@ -78,11 +78,11 @@ export default function SingleChefComponent({ chefDetails, id }: { chefDetails: 
     }
   }) || [];
 
-  console.log("Chef menu : ", menus)
+  //console.log("Chef menu : ", menus)
 
   const blockUnblock = async () => {
     const res = await myFetch(`/user/block-unblock-user/${id}`, { method: "PATCH" });
-    console.log("Block/Unblock User Res : ", res);
+    //console.log("Block/Unblock User Res : ", res);
     if (res?.success) {
       revalidate("Chef");
       // toast.success(res?.message);
@@ -158,7 +158,7 @@ export default function SingleChefComponent({ chefDetails, id }: { chefDetails: 
         <CustomModal trigger={<button className="bg-[#F2F2F2] rounded-sm px-3 py-2 text-gray-700 font-semibold cursor-pointer">Add Note</button>} title={"Add Note"} >
           <EditChef id={id}/>
         </CustomModal>
-        <Link href="/messaging?id=1" className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer flex items-center">Chat</Link>
+        <Link href="/?id=1" className="bg-[#F2F2F2] rounded-sm px-3 py-1 text-gray-700 font-semibold cursor-pointer flex items-center">Chat</Link>
       </div>
     </div>
   );

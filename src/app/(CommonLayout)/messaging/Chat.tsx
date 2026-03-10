@@ -133,7 +133,7 @@ const MessageSuspense = () => {
       </div>
       <div className='space-y-4'>
         {chatItems.length > 0 && chatItems?.map((msg) => (
-          <div onClick={() => router.push(`/messaging?id=${msg.id}`)} key={msg.id} className='bg-white flex items-center gap-4 py-3 px-4 rounded-md hover:bg-yellow-50 transition-colors duration-300 cursor-pointer'>
+          <div onClick={() => router.push(`/?id=${msg.id}`)} key={msg.id} className='bg-white flex items-center gap-4 py-3 px-4 rounded-md hover:bg-yellow-50 transition-colors duration-300 cursor-pointer'>
             <div className='w-12 h-12 rounded-full overflow-hidden'>
               <Image src={msg?.profile || userImage} alt="profile" width={50} height={50} className='w-12.5 h-12.5 object-cover'/>
             </div>

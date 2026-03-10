@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 
 const Chefs = async ({ searchParams }: { searchParams: any }) => {
   const { query, page } = await searchParams;
-  console.log("Chef management : ", query, page)
+  //console.log("Chef management : ", query, page)
 
   const queryParams = new URLSearchParams({
     role: EUserRole.CHEF,
@@ -39,7 +39,7 @@ const Chefs = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  console.log("res Chefs : ", resChefs)
+  //console.log("res Chefs : ", resChefs)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

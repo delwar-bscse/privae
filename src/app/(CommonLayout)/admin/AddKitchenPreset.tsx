@@ -104,7 +104,7 @@ export default function AddKitchenPreset({ options }: { options: any }) {
       method: "POST",
       body: formData,
     });
-    console.log("Response Data:", res);
+    //console.log("Response Data:", res);
 
     if (res?.success) {
       revalidate("admin_kitchen_preset");

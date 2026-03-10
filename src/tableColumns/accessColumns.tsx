@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 const BlockUnblockUser = async(id: string) => {
   const res = await myFetch(`/user/block-unblock-user/${id}`, { method: "PATCH" });
-  console.log("Block/Unblock User Res : ", res);
+  //console.log("Block/Unblock User Res : ", res);
   if(res?.success){
     revalidate("Access");
     toast.success(res?.message);

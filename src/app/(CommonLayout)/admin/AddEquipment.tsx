@@ -48,7 +48,7 @@ export default function AddEquipment({equipment, cousineOptions}: {equipment?: a
 
   const onSubmit = async(data: AddEquipmentFormValues) => {
     const selectCategory = cousineOptions?.find((item: any) => item.name === data.category);
-    console.log("Select Category:", selectCategory);
+    //console.log("Select Category:", selectCategory);
 
     const formDate = new FormData();
     formDate.append("name", data.name);
@@ -60,7 +60,7 @@ export default function AddEquipment({equipment, cousineOptions}: {equipment?: a
     if(equipment) { method = "PATCH" }
 
     const res = await myFetch(`${url}`, { method: method, body: formDate });
-    console.log("Response Data:", res);
+    //console.log("Response Data:", res);
 
     if (res?.success) {
       revalidate("admin_equipment");
