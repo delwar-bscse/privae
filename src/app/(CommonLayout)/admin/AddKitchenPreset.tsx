@@ -95,15 +95,16 @@ export default function AddKitchenPreset({ options }: { options: any }) {
     if (data.image?.[0]) {
       formData.append("image", data.image[0]);
     }
-    combinedOptions?.forEach((item: any) => {
-      formData.append("items", JSON.stringify(item));
-    })
+    formData.append("items", JSON.stringify(combinedOptions));
+    // combinedOptions?.forEach((item: any) => {
+    //   formData.append("items", JSON.stringify(item));
+    // })
 
     const res = await myFetch("/equipment/kitchen", {
       method: "POST",
       body: formData,
     });
-    // console.log("Response Data:", res);
+    console.log("Response Data:", res);
 
     if (res?.success) {
       revalidate("admin_kitchen_preset");
