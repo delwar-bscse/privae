@@ -49,7 +49,7 @@ const Settings = async () => {
   // console.log("Get Equipment : ", resEquipment)
   // console.log("Get Cousine : ", resCousine)
   // console.log("Get Cousine Options : ", resCousineOptions)
-  console.log("Get Kitchen Presets : ", resKitchenPreset)
+  // console.log("Get Kitchen Presets : ", resKitchenPreset)
   // console.log("Dropdown List : ", options)
 
   return (

@@ -64,7 +64,7 @@ export default function SingleCustomerComponent({ customerDetails, id }: { custo
 
   const blockUnblock = async () => {
     const res = await myFetch(`/user/block-unblock-user/${id}`, { method: "PATCH" });
-    console.log("Block/Unblock User Res : ", res);
+    // console.log("Block/Unblock User Res : ", res);
     if (res?.success) {
       revalidate("Customer");
       // toast.success(res?.message);

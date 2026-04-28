@@ -44,7 +44,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
   const grapsValue = resGraph?.data?.map((item: any) => {
     return { label: item?.label, value: item?.value };
   });
-  console.log("Graph : ", resGraph);
+  // console.log("Graph : ", resGraph);
   // console.log("Graph : ", grapsValue);
 
   const formatMoney = (input: string | number): string => {

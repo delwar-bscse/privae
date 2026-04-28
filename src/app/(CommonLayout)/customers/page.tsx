@@ -42,7 +42,7 @@ const Customers = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  console.log("Customers : ", resCustomers)
+  // console.log("Customers : ", resCustomers)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">

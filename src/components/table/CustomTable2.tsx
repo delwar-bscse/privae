@@ -68,7 +68,10 @@ function CustomTable2<TData>({ data, columns }: CustomTableProps<TData>) {
                   className="px-2 odd:bg-[#F6F6F6] hover:bg-gray-200 transition-colors duration-300"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      className="py-3 xl:py-4"
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -82,7 +85,7 @@ function CustomTable2<TData>({ data, columns }: CustomTableProps<TData>) {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-12 text-center"
+                  className="h-20 text-center py-16"
                 >
                   No results.
                 </TableCell>
