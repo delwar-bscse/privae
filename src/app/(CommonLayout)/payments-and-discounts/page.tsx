@@ -95,7 +95,9 @@ const PaymentAndDiscounts = async ({ searchParams }: { searchParams: any }) => {
           {step === "Discounts" ? <Discount data={discounts} /> : <Payment data={transactions} />}
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={step === "Discounts" ? resDiscounts?.pagination?.totalPage : resTransactions?.pagination?.totalPage} qryName="page" />
+      <div className="pb-8 pt-4">
+        <CustomPagination TOTAL_PAGES={step === "Discounts" ? resDiscounts?.pagination?.totalPage : resTransactions?.pagination?.totalPage} qryName="page" totals={step === "Discounts" ? resDiscounts?.pagination?.total : resTransactions?.pagination?.total} />
+      </div>
     </div>
   )
 }

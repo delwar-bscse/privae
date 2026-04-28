@@ -28,7 +28,7 @@ const Header = async () => {
   // console.log("User Profile : ", profile, user)
 
   return (
-    <div className='flex justify-between items-center'>
+    <div className='flex justify-between items-center px-4 xl:px-6'>
       <DashboardTitle />
       <div className='h-full flex items-center justify-end gap-2 px-2 py-4'>
         <div className='h-full flex gap-3 items-center group bg-gray-50 rounded-lg px-2 py-1.5'>

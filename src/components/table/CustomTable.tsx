@@ -42,7 +42,7 @@ function CustomTable<TData>({ data, columns, path }: CustomTableProps<TData>) {
 
   const redirectTo = (id: string) => {
     setSelectedId(id)
-    if(path){
+    if (path) {
       router.push(`${path}/${id}`)
     }
   }

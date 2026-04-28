@@ -49,7 +49,7 @@ const Settings = async () => {
   // console.log("Get Equipment : ", resEquipment)
   // console.log("Get Cousine : ", resCousine)
   // console.log("Get Cousine Options : ", resCousineOptions)
-  // console.log("Get Cousine Options : ", resKitchenPreset)
+  console.log("Get Kitchen Presets : ", resKitchenPreset)
   // console.log("Dropdown List : ", options)
 
   return (
@@ -90,7 +90,7 @@ const Settings = async () => {
               <Image src={formatUrl(category?.image)} width={1000} height={1000} alt={category?.name} className='w-10 h-10 object-contain' />
               <div>
                 <h3>{category?.name}</h3>
-                <p className='text-sm text-gray-500'>{category?.items}</p>
+                <p className='text-sm text-gray-500'>{category?.items.split(",").join(", ")}</p>
               </div>
             </div>
           ))}
@@ -111,7 +111,7 @@ const Settings = async () => {
         <div className='grid grid-cols-4 gap-6 w-full'>
           {resEquipment?.data?.map((singleEquipment: any, idx: number) => (
             <div key={idx}>
-              <p className='font-semibold px-1 pb-1'>{singleEquipment.category}</p>
+              <p className='font-semibold px-1 pb-1 text-[#272727]'>{singleEquipment.category}</p>
               <div className='flex flex-col gap-2'>{
                 singleEquipment?.items?.map((category: any, idx: number) => (
                   <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>
@@ -136,7 +136,7 @@ const Settings = async () => {
         <div className='grid grid-cols-3 gap-6 w-full'>
           {resDietary?.data?.map((singleDietary: any, idx: number) => (
             <div key={idx}>
-              <p className='font-semibold px-1 pb-1'>{singleDietary._id}</p>
+              <p className='font-semibold px-1 pb-1 text-[#272727]'>{singleDietary._id}</p>
               <div className='flex flex-col gap-2'>{
                 singleDietary?.items?.map((category: any, idx: number) => (
                   <div key={idx} className='flex items-center justify-between gap-1 px-2 py-1 bg-gray-100 rounded-sm'>

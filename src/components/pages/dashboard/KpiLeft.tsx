@@ -8,7 +8,7 @@ export type Props = {
 
 export default function KpiLeft({analytic}:{analytic:Props}) {
   return (
-    <div className="w-60 px-2 py-3 bg-[#222222] rounded-lg font-sans text-white shadow-xl">
+    <div className="w-60 px-2 py-3 bg-[#272727] rounded-lg font-sans text-white shadow-xl">
       {/* Header */}
       <h3 className="text-gray-300 text-lg font-medium mb-2">
         {analytic.title}

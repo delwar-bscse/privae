@@ -29,19 +29,19 @@ export default function OrderTable({ order, id }: { order: any, id: string }) {
           <RowString label="Admin Notes" value={order?.adminNotes?.[0]?.note} />
         </tbody>
       </table>
-      <div className="flex gap-3 ps-10">
+      <div className="flex gap-3 px-4">
         {/* <button className="flex items-center gap-1 bg-[#F2F2F2] rounded-sm px-3 py-2 text-red-500 font-semibold cursor-pointer">
           <X size={20} />
           Cancel Order
         </button> */}
-        <CustomModal trigger={<button className="flex items-center gap-1 bg-[#F2F2F2] rounded-sm px-3 py-2 text-red-500 font-semibold cursor-pointer">
-          <X size={20} />
+        <CustomModal trigger={<button className="flex items-center gap-1 bg-[#F2F2F2] rounded-full px-3 py-1 text-sm text-red-500  cursor-pointer">
+          <X size={16} />
           Cancel Order
         </button>} title={"Add Note"} >
           <DeleteBooking id={id} />
         </CustomModal>
         {/* <button className="bg-[#F2F2F2] rounded-sm px-3 py-2 text-gray-700 font-semibold cursor-pointer">Edit Order</button> */}
-        <CustomModal trigger={<button disabled={order?.adminNotes?.length > 0} className="bg-[#F2F2F2] rounded-sm px-3 py-2 text-gray-700 font-semibold cursor-pointer disabled:cursor-not-allowed disabled:opacity-70">Add Note</button>} title={"Add Note"} >
+        <CustomModal trigger={<button disabled={order?.adminNotes?.length > 0} className="bg-[#F2F2F2] rounded-full px-3 py-1 text-sm  text-gray-700  cursor-pointer disabled:cursor-not-allowed disabled:opacity-70">Add Note</button>} title={"Add Note"} >
           <EditBooking id={id} />
         </CustomModal>
       </div>

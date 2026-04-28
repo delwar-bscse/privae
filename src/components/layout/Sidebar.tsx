@@ -51,8 +51,8 @@ const Sidebar = () => {
                 key={index}
                 className={`flex gap-2 xl:items-center py-2 px-4 transition-colors duration-500 cursor-pointer rounded-sm ${isItemActive ? 'text-[#FD713F]' : 'text-white'}`}
               >
-                <span className='font-bold text-2xl'>{item.icon}</span>
-                <span className='text-lg font-semibold'>{item.title}</span>
+                <span className='font-bold text-xl'>{item.icon}</span>
+                <span className='text-base font-semibold'>{item.title}</span>
               </Link>
             );
           })}

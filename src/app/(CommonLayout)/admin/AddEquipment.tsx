@@ -79,7 +79,7 @@ export default function AddEquipment({equipment, cousineOptions}: {equipment?: a
       <div>
 
         <label className="text-sm font-medium text-gray-800">
-          Name *
+          Name <span className="text-red-500">*</span>
         </label>
 
         <input

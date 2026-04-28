@@ -53,7 +53,9 @@ const Chefs = async ({ searchParams }: { searchParams: any }) => {
           <ChefTable data={chefs} />
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={resChefs?.pagination?.totalPage} qryName="page" />
+      <div className="pb-8 pt-4">
+        <CustomPagination TOTAL_PAGES={resChefs?.pagination?.totalPage} qryName="page" totals={resChefs?.pagination?.total} />
+      </div>
     </div>
   )
 }

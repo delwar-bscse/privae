@@ -6,7 +6,7 @@ import { EDisclaimerType } from '@/enums/userEnums'
 const PrivacyPolicy = () => {
   return (
     <div>
-      <CustomJodit type={EDisclaimerType.PRIVACY}/>
+      <CustomJodit type={EDisclaimerType.PRIVACY} />
     </div>
   )
 }

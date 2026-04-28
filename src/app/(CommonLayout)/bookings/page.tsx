@@ -80,7 +80,9 @@ const Bookings = async ({ searchParams }: { searchParams: any }) => {
           <BookingTable data={bookings} />
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={resBookings?.pagination?.totalPage} qryName="page" />
+      <div className="pb-8 pt-4">
+        <CustomPagination TOTAL_PAGES={resBookings?.pagination?.totalPage} qryName="page" totals={resBookings?.pagination?.total} />
+      </div>
     </div>
   )
 }

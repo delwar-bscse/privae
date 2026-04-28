@@ -154,7 +154,7 @@ export default function AddKitchenPreset({ options }: { options: any }) {
         {/* Name */}
         <div>
           <label className="text-sm font-medium">
-            Name *
+            Name <span className="text-red-500">*</span>
           </label>
 
           <input
@@ -166,7 +166,7 @@ export default function AddKitchenPreset({ options }: { options: any }) {
         {/* Description */}
         <div>
           <label className="text-sm font-medium">
-            Description *
+            Description <span className="text-red-500">*</span>
           </label>
 
           <input

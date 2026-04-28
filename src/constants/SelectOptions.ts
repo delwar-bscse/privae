@@ -26,4 +26,17 @@ export const selectUserSupportOptions = [
   { value: "Pending", label: "Pending" },
 ];
 
+export const selectOptionsDateRange = [
+  { value: "Today", label: "Today" },
+  { value: "Yesterday", label: "Yesterday" },
+  { value: "This week", label: "This week" },
+  { value: "Last week", label: "Last week" },
+  { value: "This month", label: "This month" },
+  { value: "Last month", label: "Last month" },
+  { value: "This quarter", label: "This quarter" },
+  { value: "Last quarter", label: "Last quarter" },
+  { value: "This year", label: "This year" },
+  { value: "Custom", label: "Custom" },
+];
+
 

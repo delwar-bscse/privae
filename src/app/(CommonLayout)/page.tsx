@@ -6,6 +6,8 @@ import { StepDataType } from "@/types/type";
 import CustomStep from "@/components/cui/CustomStep";
 import { PopoverDemo } from "@/components/cui/CalenderPopover";
 import { myFetch } from "@/utils/myFetch";
+import CustomSelectOption from "@/components/cui/CustomSelectOption";
+import { selectOptionsDateRange } from "@/constants/SelectOptions";
 
 function toKebabCase(value: string): string {
   return value
@@ -15,15 +17,7 @@ function toKebabCase(value: string): string {
 }
 
 export default async function Home({ searchParams }: { searchParams: any }) {
-  const { startDate, endDate, step } = await searchParams;
-  // const stepDatas: StepDataType[] = [
-  //   { id: 1, title: "Revenue" },
-  //   { id: 2, title: "Gross Margin" },
-  //   { id: 3, title: "Orders" },
-  //   { id: 4, title: "Average Booking Length" },
-  //   { id: 5, title: "New Users" },
-  //   { id: 6, title: "New Chefs" },
-  // ];
+  const { recurring, startDate, endDate, step } = await searchParams;
 
   const stepDatas: StepDataType[] = [
     { id: 1, title: "Revenue" },
@@ -35,8 +29,9 @@ export default async function Home({ searchParams }: { searchParams: any }) {
   ];
 
   const queryParams = new URLSearchParams({
-    ...(startDate ? { startDate: startDate } : {}),
-    ...(endDate ? { endDate: endDate } : {})
+    ...(recurring && recurring !== "Custom" ? { recurring: recurring } : {}),
+    ...(recurring === "Custom" && startDate ? { startDate: startDate } : {}),
+    ...(recurring === "Custom" && endDate ? { endDate: endDate } : {})
   });
 
   const resSummary: any = await myFetch(`/admin/summary?${queryParams.toString()}`, { method: "GET" });
@@ -49,25 +44,44 @@ export default async function Home({ searchParams }: { searchParams: any }) {
   const grapsValue = resGraph?.data?.map((item: any) => {
     return { label: item?.label, value: item?.value };
   });
-  // console.log("Graph : ", resGraph);
-  console.log("Graph : ", grapsValue);
+  console.log("Graph : ", resGraph);
+  // console.log("Graph : ", grapsValue);
+
+  const formatMoney = (input: string | number): string => {
+    // Convert to number (parseFloat handles strings and ignores leading zeros)
+    const amount = typeof input === 'string' ? parseFloat(input) : input;
+
+    // Check for invalid numbers
+    if (isNaN(amount)) return '$0.00';
+
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  };
+
 
   return (
-    <div>
-      <div className="px-2 pb-4">
-        <PopoverDemo />
+    <div className="px-4 xl:px-6 pb-4">
+      <div className="px-2 pb-4 flex items-center gap-3 xl:gap-4">
+        <div className=''>
+          <CustomSelectOption selectOptions={selectOptionsDateRange} placeHolderValue="Select" queryKey="recurring" />
+        </div>
+        {recurring === "Custom" && <PopoverDemo />}
       </div>
       <div className="px-2 flex gap-3 xl:gap-4">
         <div>
-          <KpiLeft analytic={{ title: "Total Revenue", value: resSummary?.data?.grossMargin, growth: "9.48%" }} />
+          <KpiLeft analytic={{ title: "Total Revenue", value: formatMoney(resSummary?.data?.grossMargin), growth: "9.48%" }} />
         </div>
         <div className="flex-1 grid grid-cols-4 gap-3 xl:gap-4">
-          <KpiRight analytic={{ title: "Total Gross Margin", value: resSummary?.data?.grossMargin, growth: "9.48%" }} />
+          <KpiRight analytic={{ title: "Total Gross Margin", value: formatMoney(resSummary?.data?.grossMargin), growth: "9.48%" }} />
           <KpiRight analytic={{ title: "# of Orders", value: resSummary?.data?.totalOrders, growth: "9.48%" }} />
           <KpiRight analytic={{ title: "# of Users", value: resSummary?.data?.totalUsers, growth: "9.48%" }} />
           <KpiRight analytic={{ title: "# of Chefs", value: resSummary?.data?.totalChef, growth: "9.48%" }} />
           <KpiRight analytic={{ title: "Average Bookings per Week", value: resSummary?.data?.avgBooking, growth: "9.48%" }} />
-          <KpiRight analytic={{ title: "Average Revenue per Booking", value: resSummary?.data?.avgRevineue, growth: "9.48%" }} />
+          <KpiRight analytic={{ title: "Average Revenue per Booking", value: formatMoney(resSummary?.data?.avgRevineue), growth: "9.48%" }} />
           <KpiRight analytic={{ title: "Average Booking Length", value: resSummary?.data?.avgBookingLength, growth: "9.48%" }} />
           <KpiRight analytic={{ title: "Average Dishes per Booking", value: resSummary?.data?.avgDishesPerBooking, growth: "9.48%" }} />
         </div>

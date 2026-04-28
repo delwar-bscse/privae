@@ -10,8 +10,8 @@ export function PopoverDemo() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="flex items-center gap-1 border px-3 py-1 rounded-md cursor-pointer">
-          <span>Custom</span>
+        <button className="flex items-center gap-1 border border-gray-300 px-3 h-9 rounded-md cursor-pointer">
+          <span>Select Date</span>
           <IoIosArrowDown />
         </button>
       </PopoverTrigger>

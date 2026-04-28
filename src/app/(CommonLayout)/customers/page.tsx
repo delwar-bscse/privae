@@ -42,7 +42,7 @@ const Customers = async ({ searchParams }: { searchParams: any }) => {
     }
   }) || []
 
-  //console.log("Customers : ", resCustomers)
+  console.log("Customers : ", resCustomers)
 
   return (
     <div className="px-8 flex flex-col min-h-[86vh]">
@@ -56,7 +56,9 @@ const Customers = async ({ searchParams }: { searchParams: any }) => {
           <CustomerTable data={customers} />
         </div>
       </div>
-      <CustomPagination TOTAL_PAGES={resCustomers?.pagination?.totalPage} qryName="page" />
+      <div className="pb-8 pt-4">
+        <CustomPagination TOTAL_PAGES={resCustomers?.pagination?.totalPage} qryName="page" totals={resCustomers?.pagination?.total}/>
+      </div>
     </div>
   )
 }

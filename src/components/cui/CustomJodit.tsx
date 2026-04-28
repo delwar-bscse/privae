@@ -67,7 +67,7 @@ function CustomJodit({ type }: { type: EDisclaimerType }) {
 
     if (res?.success) {
       toast.success("Content updated successfully");
-    }else{
+    } else {
       toast.error(res?.message || "Failed to update content");
     }
   }
@@ -82,7 +82,7 @@ function CustomJodit({ type }: { type: EDisclaimerType }) {
         onBlur={handleBlur}
       />
       <div className="flex justify-end mt-4">
-        <button onClick={handleOnSave} className="inline-block w-100 px-10 py-2 bg-[#272727] hover:bg-[#272727]/90 text-white border border-gray-400 rounded transitionClr">Save</button>
+        <button onClick={handleOnSave} className="inline-block w-100 px-10 py-2 bg-[#272727] hover:bg-[#272727]/90 text-white border border-gray-400 rounded-lg transitionClr">Save</button>
       </div>
     </div>
   );

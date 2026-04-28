@@ -83,7 +83,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
     <td
       data-slot="table-cell"
       className={cn(
-        "h-8",
+        "h-8 xl:h-9 text-gray-700 text-[12px] xl:text-sm",
         className
       )}
       {...props}

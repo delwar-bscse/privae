@@ -10,7 +10,7 @@ export default function RootLayout({
 }>) {
   return (
       <div className="flex">
-        <section className="w-56 xl:w-68">
+        <section className="xl:px-2 bg-[#272727]">
           <Sidebar />
         </section>
         <div className="flex-1">
